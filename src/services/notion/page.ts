@@ -11,7 +11,7 @@ export const getNotionPage = unstable_cache(
     } catch (error) {
       console.error('Error fetching page from Notion:', error);
 
-      return {};
+      return null;
     }
   },
   ['notion-record-map'],

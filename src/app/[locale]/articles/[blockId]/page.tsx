@@ -4,7 +4,6 @@ import 'katex/dist/katex.min.css';
 
 import { NotionPageRenderer } from '@/components/shared/notion-page-renderer';
 import { getNotionPage } from '@/services/notion/page';
-import { isEmpty } from 'lodash';
 import { notFound } from 'next/navigation';
 import { BackButton } from '@/components/shared/back-button';
 
@@ -13,7 +12,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ blockI
 
   const recordMap = await getNotionPage(blockId);
 
-  if (isEmpty(recordMap)) notFound();
+  if (!recordMap) notFound();
 
   return (
     <>

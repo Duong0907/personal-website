@@ -3,7 +3,7 @@
 import { Switch as SwitchPrimitive } from '@base-ui/react/switch';
 
 import { cn } from '@/lib/utils';
-import { ReactElement } from 'react';
+import { type ReactElement } from 'react';
 
 function Switch({
   className,

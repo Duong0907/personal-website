@@ -5,7 +5,6 @@ import 'katex/dist/katex.min.css';
 import { NotionPageRenderer } from '@/components/shared/notion-page-renderer';
 import { SectionHeader } from '@/components/shared/section-header';
 import { getNotionPage } from '@/services/notion/page';
-import { isEmpty } from 'lodash';
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
@@ -20,7 +19,7 @@ export default async function AboutPage() {
 
   const recordMap = await getNotionPage(aboutPageId);
 
-  if (isEmpty(recordMap)) {
+  if (!recordMap) {
     notFound();
   }
 

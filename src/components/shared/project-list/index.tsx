@@ -1,4 +1,4 @@
-import { Project } from '@/interfaces/project';
+import { type Project } from '@/interfaces/project';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { isEmpty, map } from 'lodash';
 import Image from 'next/image';

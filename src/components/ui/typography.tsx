@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils';
 import { cva } from 'class-variance-authority';
-import { ElementType } from 'react';
+import { type ElementType } from 'react';
 
 type TypographyVariat = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body';
 type TypographyWeight = 'regular' | 'medium' | 'bold' | 'black' | 'light';

@@ -1,12 +1,15 @@
 import { get, map } from 'lodash';
+import type { QueryDataSourceResponse } from '@notionhq/client';
 import { notion } from './notion';
-import { Project } from '@/interfaces/project';
+import type { Project } from '@/interfaces/project';
 import { unstable_cache } from 'next/cache';
 import { NOTION_CACHE_REVALIDATE_TIME } from '@/lib/constant';
 
 const NOTION_DATASOURCE_ID = process.env.NOTION_DATASOURCE_ID || '';
 
-const mapProjectEntity = (item: any): Project => {
+type DataSourceRow = QueryDataSourceResponse['results'][number];
+
+const mapProjectEntity = (item: DataSourceRow): Project => {
   const props = get(item, 'properties', {});
 
   return {
@@ -15,11 +18,11 @@ const mapProjectEntity = (item: any): Project => {
     status: get(props, 'Status.select.name', 'N/A'),
     technologies: get(props, 'Technologies.rich_text[0].plain_text', 'N/A'),
     features: get(props, 'Features.rich_text[0].plain_text', 'N/A'),
-    imageUrl: get(props, 'Thumbnail.files[0].file.url'),
+    imageUrl: get(props, 'Thumbnail.files[0].file.url', ''),
   };
 };
 
-const getProjectLists = (response: any): Project[] => {
+const getProjectLists = (response: QueryDataSourceResponse): Project[] => {
   const results = get(response, 'results', []);
 
   return map(results, mapProjectEntity);
@@ -37,7 +40,7 @@ export const getAllProjects = unstable_cache(
         },
       });
 
-      return getProjectLists(response as any);
+      return getProjectLists(response);
     } catch (error) {
       console.error('Error fetching projects from Notion:', error);
 
