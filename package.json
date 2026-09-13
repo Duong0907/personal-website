@@ -6,8 +6,7 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "next lint",
-    "lint-staged": "lint-staged",
+    "lint": "eslint .",
     "format": "prettier --check .",
     "format:fix": "prettier --write --list-different .",
     "prepare": "husky"
@@ -44,7 +43,10 @@
     "@types/react-dom": "19.2.3",
     "autoprefixer": "^10.4.27",
     "commitlint": "^20.4.4",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "16.3.5",
     "husky": "^9.1.7",
+    "lint-staged": "^17.5.1",
     "postcss": "^8.5.28",
     "prettier": "^3.8.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
@@ -54,6 +56,10 @@
   "overrides": {
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": "eslint --fix",
+    "*.{js,jsx,ts,tsx,css,md,json}": "prettier --write"
   },
   "packageManager": "pnpm@11.9.0+sha512.bd682d5d03fe525ef7c9fd6780c6884d1e756ac4c9c9fe00c538782824310dcf90e3ddc4f53835f06dfaebd5085e41855e0bcbb3b60de2ac5bbab89e5036f03b"
 }

@@ -23,7 +23,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="root-layout text-foreground source-serif-4-regular space-y-18 px-3 flex flex-col items-center">
       <NavBar />
-      <div className="md:min-w-[556px] md:max-w-[1000px]">{children}</div>
+      <div className="md:min-w-139 md:max-w-250">{children}</div>
       <Footer />
     </div>
   );
@@ -63,9 +63,12 @@ export default async function RootLayout({
       <head>
         <link rel="icon" href="/logo/kuriboh.png" sizes="any" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        {/* This is false positive (a bug) in app router */}
+        {/* eslint-disable @next/next/no-page-custom-font */}
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=optional"
         />
       </head>
 

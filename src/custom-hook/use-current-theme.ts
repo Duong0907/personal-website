@@ -8,6 +8,7 @@ export const useCurrentTheme = () => {
 
   // useEffect to avoid hydration error
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsDarkTheme(resolvedTheme === THEME.DARK);
   }, [setIsDarkTheme, resolvedTheme]);
 
