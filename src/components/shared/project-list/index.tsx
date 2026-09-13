@@ -1,10 +1,10 @@
-import { type Project } from '@/interfaces/project';
+import type { Project } from '@/interfaces/project';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { isEmpty, map } from 'lodash';
 import Image from 'next/image';
 import { Typography } from '@/components/ui/typography';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
-import { Link } from '@/i18n/routing';
+import { Link } from '@/i18n/navigation';
 import { FALLBACK_CARD_IMAGE_URL } from '@/lib/constant';
 
 export function ProjectList({ projects }: { projects: Project[] }) {

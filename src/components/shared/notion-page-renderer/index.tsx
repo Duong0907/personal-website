@@ -1,5 +1,9 @@
 'use client';
 
+import 'react-notion-x/styles.css';
+import 'prismjs/themes/prism-tomorrow.css';
+import 'katex/dist/katex.min.css';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import type { ComponentProps } from 'react';
@@ -14,11 +18,11 @@ export function NotionPageRenderer({ recordMap, ...props }: ComponentProps<typeo
       recordMap={recordMap}
       fullPage={false}
       darkMode={isDarkTheme}
-      {...props}
       components={{
         nextImage: Image,
         nextLink: Link,
       }}
+      {...props}
     />
   );
 }

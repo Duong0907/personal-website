@@ -18,6 +18,7 @@ const sourceSerif4 = Source_Serif_4({
 });
 
 import { getMessages, getTranslations } from 'next-intl/server';
+import { locale as getLocale } from 'next/root-params';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -29,8 +30,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
-  const { locale } = await params;
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
   const t = await getTranslations({ locale, namespace: 'metadata' });
 
   return {
@@ -43,14 +44,16 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
+// The revalidate time (second) of notions pages
+// Should be bigger than the  NOTION_CACHE_REVALIDATE_TIME to get the latest data
+export const revalidate = 60;
+
 export default async function RootLayout({
   children,
-  params,
 }: Readonly<{
   children: React.ReactNode;
-  params: Promise<{ locale: string }>;
 }>) {
-  const { locale } = await params;
+  const locale = await getLocale();
 
   if (!hasLocale(routing.locales, locale)) {
     notFound();

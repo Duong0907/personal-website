@@ -3,10 +3,12 @@ import { SectionHeader } from '@/components/shared/section-header';
 import { getAllProjects } from '@/services/notion/project';
 import { getTranslations } from 'next-intl/server';
 
-export default async function ProjectPage() {
-  const t = await getTranslations('projects');
+// The revalidate time (second) of notions pages
+// Should be bigger than the  NOTION_CACHE_REVALIDATE_TIME to get the latest data
+export const revalidate = 60;
 
-  const projects = await getAllProjects();
+export default async function ProjectPage() {
+  const [t, projects] = await Promise.all([getTranslations('projects'), getAllProjects()]);
 
   return (
     <>

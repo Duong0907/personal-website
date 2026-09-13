@@ -1,23 +1,25 @@
-import 'react-notion-x/styles.css';
-import 'prismjs/themes/prism-tomorrow.css';
-import 'katex/dist/katex.min.css';
-
-import { NotionPageRenderer } from '@/components/shared/notion-page-renderer';
+import dynamic from 'next/dynamic';
 import { SectionHeader } from '@/components/shared/section-header';
 import { getNotionPage } from '@/services/notion/page';
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
-export default async function AboutPage() {
-  const t = await getTranslations('about-me');
+const NotionPageRenderer = dynamic(() =>
+  import('@/components/shared/notion-page-renderer').then((m) => m.NotionPageRenderer),
+);
 
+// The revalidate time (second) of notions pages
+// Should be bigger than the  NOTION_CACHE_REVALIDATE_TIME to get the latest data
+export const revalidate = 60;
+
+export default async function AboutPage() {
   const aboutPageId = process.env.ABOUT_PAGE_ID;
 
   if (!aboutPageId) {
     notFound();
   }
 
-  const recordMap = await getNotionPage(aboutPageId);
+  const [t, recordMap] = await Promise.all([getTranslations('about-me'), getNotionPage(aboutPageId)]);
 
   if (!recordMap) {
     notFound();

@@ -1,5 +1,5 @@
 import { Typography } from '@/components/ui/typography';
-import { Link } from '@/i18n/routing';
+import { Link } from '@/i18n/navigation';
 import { ROOT_URL } from '@/lib/url';
 import type { MouseEventHandler } from 'react';
 

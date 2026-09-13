@@ -1,7 +1,7 @@
 'use client';
 
 import { Switch } from '@/components/ui/switch';
-import { usePathname, useRouter } from '@/i18n/routing';
+import { usePathname, useRouter } from '@/i18n/navigation';
 import { DEFAULT_LOCALE, LOCALE } from './constant';
 import { useLocale } from 'next-intl';
 import Image from 'next/image';

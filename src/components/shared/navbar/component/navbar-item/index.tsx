@@ -1,7 +1,7 @@
 'use client';
 
 import { Typography } from '@/components/ui/typography';
-import { Link, usePathname } from '@/i18n/routing';
+import { Link, usePathname } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
 import classNames from 'classnames';
 import { useMemo } from 'react';
