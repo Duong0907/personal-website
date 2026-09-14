@@ -1,11 +1,11 @@
 import dynamic from 'next/dynamic';
-import { getNotionPage } from '@/services/notion/page';
-import { getAllProjects } from '@/services/notion/project';
 import { notFound } from 'next/navigation';
 import { BackButton } from '@/components/shared/back-button';
+import { getAllProjects } from '@/features/notion/services/project';
+import { getNotionPage } from '@/features/notion/services/page';
 
 const NotionPageRenderer = dynamic(() =>
-  import('@/components/shared/notion-page-renderer').then((m) => m.NotionPageRenderer),
+  import('@/features/notion/components/notion-page-renderer').then((m) => m.NotionPageRenderer),
 );
 
 export async function generateStaticParams() {

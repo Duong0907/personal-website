@@ -1,11 +1,12 @@
 import dynamic from 'next/dynamic';
 import { SectionHeader } from '@/components/shared/section-header';
-import { getNotionPage } from '@/services/notion/page';
+
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
+import { getNotionPage } from '@/features/notion/services/page';
 
 const NotionPageRenderer = dynamic(() =>
-  import('@/components/shared/notion-page-renderer').then((m) => m.NotionPageRenderer),
+  import('@/features/notion/components/notion-page-renderer').then((m) => m.NotionPageRenderer),
 );
 
 export default async function AboutPage() {

@@ -5,7 +5,6 @@ import './global.css';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { Source_Serif_4, Geist } from 'next/font/google';
 import { cn } from '@/lib/utils';
-import { ThemeProvider } from 'next-themes';
 import { Footer } from '@/components/shared/footer';
 import { routing } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
@@ -19,6 +18,7 @@ const sourceSerif4 = Source_Serif_4({
 
 import { getMessages, getTranslations } from 'next-intl/server';
 import { locale as getLocale } from 'next/root-params';
+import { ThemeProvider } from '@/features/theme/provider';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (

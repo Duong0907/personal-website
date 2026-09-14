@@ -8,7 +8,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { ComponentProps } from 'react';
 import { NotionRenderer } from 'react-notion-x';
-import { useCurrentTheme } from '@/custom-hook/use-current-theme';
+import { useCurrentTheme } from '@/features/theme/hooks';
 
 export function NotionPageRenderer({ recordMap, ...props }: ComponentProps<typeof NotionRenderer>) {
   const { isDarkTheme } = useCurrentTheme();

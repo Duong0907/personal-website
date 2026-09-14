@@ -1,7 +1,7 @@
 import { Icon } from '@/components/ui/icon';
 import { Switch } from '@/components/ui/switch';
 import { THEME } from './constant';
-import { useCurrentTheme } from '@/custom-hook/use-current-theme';
+import { useCurrentTheme } from '@/features/theme/hooks';
 
 export function ThemeSwitch() {
   const { isDarkTheme, setTheme } = useCurrentTheme();

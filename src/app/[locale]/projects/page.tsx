@@ -1,7 +1,7 @@
-import { ProjectList } from '@/components/shared/project-list';
+import { ProjectList } from '@/features/projects/project-list';
 import { SectionHeader } from '@/components/shared/section-header';
-import { getAllProjects } from '@/services/notion/project';
 import { getTranslations } from 'next-intl/server';
+import { getAllProjects } from '@/features/notion/services/project';
 
 export default async function ProjectPage() {
   const [t, projects] = await Promise.all([getTranslations('projects'), getAllProjects()]);
