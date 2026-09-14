@@ -1,5 +1,6 @@
 import { NavBar } from '@/components/shared/navbar';
 import type { Metadata } from 'next';
+import { SITE_URL } from '@/lib/constant';
 import './global.css';
 
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
@@ -32,11 +33,28 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
+
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
+
   const t = await getTranslations({ locale, namespace: 'metadata' });
 
   return {
+    metadataBase: new URL(SITE_URL),
     title: t('title'),
     description: t('description'),
+    openGraph: {
+      title: t('title'),
+      description: t('description'),
+      type: 'website',
+      locale,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: t('title'),
+      description: t('description'),
+    },
   };
 }
 
@@ -60,7 +78,6 @@ export default async function RootLayout({
   return (
     <html lang={locale} className={cn('font-sans [scrollbar-gutter:stable]', geist.variable)} suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/logo/kuriboh.png" sizes="any" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         {/* This is false positive (a bug) in app router */}

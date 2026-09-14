@@ -10,7 +10,7 @@ const SocialIcon = ({ path, altText, href }: { path: string; altText: string; hr
   return (
     <Link href={href}>
       <Image
-        className="cursor-pointer dark:invert"
+        className="cursor-pointer dark:invert transition-transform duration-300 hover:scale-110 hover:-translate-y-0.5"
         src={path}
         width={SOCIAL_ICON_SIZE}
         height={SOCIAL_ICON_SIZE}
@@ -31,12 +31,19 @@ export default async function HomePage() {
   return (
     <div className="home-page flex flex-col items-center gap-7">
       <div className="flex flex-col gap-3 items-center">
-        <Avatar className="size-37.5 bg-white">
+        <Avatar className="size-37.5 bg-white animate-float">
           <AvatarImage src="/logo/kuriboh.png" />
           <AvatarFallback>Duong Phan</AvatarFallback>
         </Avatar>
         <Typography variant="h1" weight="bold">
           Duong Phan
+        </Typography>
+      </div>
+
+      <div className="flex items-center gap-1.5 rounded-full border border-border px-3 py-1">
+        <span className="size-2 rounded-full bg-green-500" />
+        <Typography variant="body" weight="medium">
+          {t('openToWork')}
         </Typography>
       </div>
 

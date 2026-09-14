@@ -1,3 +1,4 @@
+'use client';
 import { THEME } from '@/components/shared/navbar/component/theme-switch/constant';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';

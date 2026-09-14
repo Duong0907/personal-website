@@ -182,6 +182,23 @@
   animation: fade-in 0.4s ease-out 0.3s both;
 }
 
+/* 3. Avatar idle float */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+}
+
 /* Override notion styles (outside base layer) */
 .notion {
   --notion-font: var(--font-source-serif-4), sans-serif;
