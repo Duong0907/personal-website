@@ -6,7 +6,6 @@ import { NavBarItem } from '../navbar-item';
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer';
 import { Logo } from '../logo';
 import { useState } from 'react';
-import { map } from 'lodash';
 import { ABOUT_URL, BLOG_URL, PROJECTS_URL, ROOT_URL } from '@/lib/url';
 import { useTranslations } from 'next-intl';
 
@@ -38,7 +37,7 @@ export function NavDialog() {
         </DrawerHeader>
         <NavigationMenu orientation="vertical" className="max-w-none">
           <NavigationMenuList aria-orientation="vertical" className="flex-col">
-            {map(navConfig, (config, index) => (
+            {navConfig.map((config, index) => (
               <NavigationMenuItem onClick={closeDrawer} key={index}>
                 <NavBarItem href={config.url} title={config.title}></NavBarItem>
               </NavigationMenuItem>

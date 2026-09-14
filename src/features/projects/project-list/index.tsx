@@ -1,6 +1,5 @@
 import type { Project } from '@/interfaces/project';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { isEmpty, map } from 'lodash';
 import Image from 'next/image';
 import { Typography } from '@/components/ui/typography';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
@@ -10,21 +9,23 @@ import { FALLBACK_CARD_IMAGE_URL } from '@/lib/constant';
 export function ProjectList({ projects }: { projects: Project[] }) {
   return (
     <ul className="grid grid-cols md:grid-cols-2 xl:grid-cols-3 gap-8">
-      {map(projects, (project) => {
+      {projects.map((project, index) => {
         const { id, name, features, technologies, imageUrl } = project;
+        const isAboveFold = index === 0;
 
         return (
           <Link href={`/articles/${id}`} key={id}>
             <Card className="cursor-pointer">
-              {isEmpty(imageUrl) ? (
-                <AspectRatio ratio={3 / 2}>
-                  <Image src={FALLBACK_CARD_IMAGE_URL} alt={name} fill draggable={false} />
-                </AspectRatio>
-              ) : (
-                <AspectRatio ratio={3 / 2}>
-                  <Image src={imageUrl} alt={name} fill draggable={false} />
-                </AspectRatio>
-              )}
+              <AspectRatio ratio={3 / 2}>
+                <Image
+                  src={imageUrl || FALLBACK_CARD_IMAGE_URL}
+                  alt={name}
+                  fill
+                  draggable={false}
+                  sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
+                  priority={isAboveFold}
+                />
+              </AspectRatio>
 
               <CardHeader>
                 <CardDescription>

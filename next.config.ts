@@ -6,11 +6,6 @@ const nextConfig: NextConfig = {
     globalNotFound: true,
   },
   serverExternalPackages: ['notion-client', '@notionhq/client'],
-  modularizeImports: {
-    lodash: {
-      transform: 'lodash/{{member}}',
-    },
-  },
   images: {
     remotePatterns: [
       {

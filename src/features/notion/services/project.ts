@@ -1,30 +1,27 @@
-import { get, map } from 'lodash';
 import type { QueryDataSourceResponse } from '@notionhq/client';
 import { notion } from './notion';
 import type { Project } from '@/interfaces/project';
 import { cachedInProduction } from './cached-in-production';
+import { NOTION_IMAGE_URL_CACHE_TTL_SECONDS } from '@/lib/constant';
+import type { DataSourceRow, NotionPageResult } from '../types';
 
 const NOTION_DATASOURCE_ID = process.env.NOTION_DATASOURCE_ID || '';
 
-type DataSourceRow = QueryDataSourceResponse['results'][number];
-
 const mapProjectEntity = (item: DataSourceRow): Project => {
-  const props = get(item, 'properties', {});
+  const { id, properties: props = {} } = item as NotionPageResult;
 
   return {
-    id: get(item, 'id'),
-    name: get(props, 'Name.title[0].plain_text', 'Untitled Project'),
-    status: get(props, 'Status.select.name', 'N/A'),
-    technologies: get(props, 'Technologies.rich_text[0].plain_text', 'N/A'),
-    features: get(props, 'Features.rich_text[0].plain_text', 'N/A'),
-    imageUrl: get(props, 'Thumbnail.files[0].file.url', ''),
+    id,
+    name: props.Name?.title?.[0]?.plain_text ?? 'Untitled Project',
+    status: props.Status?.select?.name ?? 'N/A',
+    technologies: props.Technologies?.rich_text?.[0]?.plain_text ?? 'N/A',
+    features: props.Features?.rich_text?.[0]?.plain_text ?? 'N/A',
+    imageUrl: props.Thumbnail?.files?.[0]?.file?.url ?? '',
   };
 };
 
 const getProjectLists = (response: QueryDataSourceResponse): Project[] => {
-  const results = get(response, 'results', []);
-
-  return map(results, mapProjectEntity);
+  return response.results.map(mapProjectEntity);
 };
 
 async function fetchAllProjects(): Promise<Project[]> {
@@ -46,4 +43,7 @@ async function fetchAllProjects(): Promise<Project[]> {
   }
 }
 
-export const getAllProjects = cachedInProduction(fetchAllProjects, ['notion-get-all-projects'], { tags: ['notion'] });
+export const getAllProjects = cachedInProduction(fetchAllProjects, ['notion-get-all-projects'], {
+  tags: ['notion'],
+  revalidate: NOTION_IMAGE_URL_CACHE_TTL_SECONDS,
+});

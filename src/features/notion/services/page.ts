@@ -1,5 +1,6 @@
 import { notionApi } from './notion';
 import { cachedInProduction } from './cached-in-production';
+import { NOTION_IMAGE_URL_CACHE_TTL_SECONDS } from '@/lib/constant';
 
 async function fetchNotionPage(blockId: string) {
   try {
@@ -13,4 +14,7 @@ async function fetchNotionPage(blockId: string) {
   }
 }
 
-export const getNotionPage = cachedInProduction(fetchNotionPage, ['notion-record-map'], { tags: ['notion'] });
+export const getNotionPage = cachedInProduction(fetchNotionPage, ['notion-record-map'], {
+  tags: ['notion'],
+  revalidate: NOTION_IMAGE_URL_CACHE_TTL_SECONDS,
+});
