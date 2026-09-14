@@ -2,8 +2,7 @@ import { get, map } from 'lodash';
 import type { QueryDataSourceResponse } from '@notionhq/client';
 import { notion } from './notion';
 import type { Project } from '@/interfaces/project';
-import { unstable_cache } from 'next/cache';
-import { NOTION_CACHE_REVALIDATE_TIME } from '@/lib/constant';
+import { cachedInProduction } from './cached-in-production';
 
 const NOTION_DATASOURCE_ID = process.env.NOTION_DATASOURCE_ID || '';
 
@@ -28,27 +27,23 @@ const getProjectLists = (response: QueryDataSourceResponse): Project[] => {
   return map(results, mapProjectEntity);
 };
 
-export const getAllProjects = unstable_cache(
-  async (): Promise<Project[]> => {
-    try {
-      const response = await notion.dataSources.query({
-        data_source_id: NOTION_DATASOURCE_ID,
-        filter: {
-          property: 'Status',
-          select: { equals: 'Published' },
-          type: 'select',
-        },
-      });
+async function fetchAllProjects(): Promise<Project[]> {
+  try {
+    const response = await notion.dataSources.query({
+      data_source_id: NOTION_DATASOURCE_ID,
+      filter: {
+        property: 'Status',
+        select: { equals: 'Published' },
+        type: 'select',
+      },
+    });
 
-      return getProjectLists(response);
-    } catch (error) {
-      console.error('Error fetching projects from Notion:', error);
+    return getProjectLists(response);
+  } catch (error) {
+    console.error('Error fetching projects from Notion:', error);
 
-      return [];
-    }
-  },
-  ['notion-get-all-projects'],
-  {
-    revalidate: NOTION_CACHE_REVALIDATE_TIME,
-  },
-);
+    return [];
+  }
+}
+
+export const getAllProjects = cachedInProduction(fetchAllProjects, ['notion-get-all-projects'], { tags: ['notion'] });

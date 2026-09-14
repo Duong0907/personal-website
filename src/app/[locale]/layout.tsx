@@ -44,10 +44,6 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-// The revalidate time (second) of notions pages
-// Should be bigger than the  NOTION_CACHE_REVALIDATE_TIME to get the latest data
-export const revalidate = 60;
-
 export default async function RootLayout({
   children,
 }: Readonly<{

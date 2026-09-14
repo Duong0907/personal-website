@@ -1,21 +1,16 @@
-import { unstable_cache } from 'next/cache';
 import { notionApi } from './notion';
-import { NOTION_CACHE_REVALIDATE_TIME } from '@/lib/constant';
+import { cachedInProduction } from './cached-in-production';
 
-export const getNotionPage = unstable_cache(
-  async (blockId) => {
-    try {
-      const recordMap = await notionApi.getPage(blockId);
+async function fetchNotionPage(blockId: string) {
+  try {
+    const recordMap = await notionApi.getPage(blockId);
 
-      return recordMap;
-    } catch (error) {
-      console.error('Error fetching page from Notion:', error);
+    return recordMap;
+  } catch (error) {
+    console.error('Error fetching page from Notion:', error);
 
-      return null;
-    }
-  },
-  ['notion-record-map'],
-  {
-    revalidate: NOTION_CACHE_REVALIDATE_TIME,
-  },
-);
+    return null;
+  }
+}
+
+export const getNotionPage = cachedInProduction(fetchNotionPage, ['notion-record-map'], { tags: ['notion'] });
