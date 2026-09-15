@@ -1,7 +1,8 @@
-import { Icon } from '@/components/ui/icon';
 import { Switch } from '@/components/ui/switch';
 import { THEME } from './constant';
 import { useCurrentTheme } from '@/features/theme/hooks';
+import DarkModeIcon from '@material-design-icons/svg/filled/dark_mode.svg';
+import LightModeIcon from '@material-design-icons/svg/outlined/light_mode.svg';
 
 export function ThemeSwitch() {
   const { isDarkTheme, setTheme } = useCurrentTheme();
@@ -15,8 +16,8 @@ export function ThemeSwitch() {
       checked={isDarkTheme}
       onCheckedChange={handleChangeTheme}
       size="xl"
-      iconOn={<Icon size="sm" variant="filled" name="dark_mode" />}
-      iconOff={<Icon size="sm" name="light_mode" />}
+      iconOn={<DarkModeIcon className="size-5" />}
+      iconOff={<LightModeIcon className="size-5" />}
       className="data-checked:bg-highlight"
     />
   );

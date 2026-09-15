@@ -79,13 +79,6 @@ export default async function RootLayout({
     <html lang={locale} className={cn('font-sans [scrollbar-gutter:stable]', geist.variable)} suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-        {/* This is false positive (a bug) in app router */}
-        {/* eslint-disable @next/next/no-page-custom-font */}
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=optional"
-        />
       </head>
 
       <body className={sourceSerif4.className}>

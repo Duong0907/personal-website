@@ -6,19 +6,20 @@
   "home": {
     "title": "Kỹ sư phần mềm",
     "description": "Mình yêu thích việc tạo ra những sản phẩm số mượt mà, từ khâu lên ý tưởng cho đến khi hoàn thiện sản phẩm cuối cùng.",
-    "openToWork": "Sẵn sàng cho cơ hội mới"
+    "openToWork": "Sẵn sàng cho cơ hội mới",
+    "myLinkedIn": "LinkedIn của mình"
   },
   "about-me": {
     "title": "Tôi là ai?",
-    "description": "Software Engineer"
+    "description": "Kỹ sư phần mềm"
   },
   "projects": {
-    "title": "Dự án",
-    "description": "Những đứa con tinh thần"
+    "title": "Dự án cá nhân",
+    "description": "Những gì mình đã build"
   },
   "blog": {
     "title": "Bài viết",
-    "description": "Những suy nghĩ vu vơ"
+    "description": "Nơi chia sẻ kiến thức"
   },
   "navbar": {
     "home": "Trang chủ",

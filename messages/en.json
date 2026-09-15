@@ -5,20 +5,21 @@
   },
   "home": {
     "title": "Software Engineer",
-    "description": "Passionate about building seamless digital products through end-to-end",
-    "openToWork": "Open to work"
+    "description": "2 years in Software Development. I build end-to-end web applications, question assumptions, and stay curious about what's next.",
+    "openToWork": "Open to work",
+    "myLinkedIn": "My LinkedIn"
   },
   "about-me": {
     "title": "Who is me?",
     "description": "A software engineer"
   },
   "projects": {
-    "title": "Projects",
-    "description": "My brainchildren"
+    "title": "Personal Projects",
+    "description": "Show what I built"
   },
   "blog": {
     "title": "Blog",
-    "description": "Where I expose my thought"
+    "description": "Write my thought"
   },
   "navbar": {
     "home": "Home",

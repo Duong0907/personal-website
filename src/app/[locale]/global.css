@@ -141,13 +141,6 @@
   html {
     @apply font-sans;
   }
-
-  /* Icon custom classes */
-  .icon-filled {
-    font-variation-settings:
-      'FILL' 1,
-      'wght' 600;
-  }
 }
 
 /* 1. The Sliding Black Screen */

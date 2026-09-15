@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic';
 import { notFound } from 'next/navigation';
 import { BackButton } from '@/components/shared/back-button';
+import { GoToTop } from '@/components/shared/back-to-top-button';
 import { getAllProjects } from '@/features/notion/services/project';
 import { getNotionPage } from '@/features/notion/services/page';
 
@@ -23,11 +24,13 @@ export default async function ArticlePage({ params }: { params: Promise<{ blockI
 
   return (
     <>
-      <div className="w-full my-4">
+      <div className="w-full">
         <BackButton />
       </div>
 
       <NotionPageRenderer recordMap={recordMap} />
+
+      <GoToTop />
     </>
   );
 }

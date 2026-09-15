@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { Icon } from '@/components/ui/icon';
+import MenuIcon from '@material-design-icons/svg/outlined/menu.svg';
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from '@/components/ui/navigation-menu';
 import { NavBarItem } from '../navbar-item';
 
@@ -26,7 +26,7 @@ export function NavDialog() {
     <Drawer direction="top" open={isOpen} onOpenChange={setIsOpen}>
       <DrawerTrigger asChild>
         <Button variant="outline">
-          <Icon name="menu" className="text-foreground" />
+          <MenuIcon className="size-6 text-foreground" />
         </Button>
       </DrawerTrigger>
       <DrawerContent className="p-8">

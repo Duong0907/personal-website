@@ -18,6 +18,22 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: [
+          {
+            loader: '@svgr/webpack',
+            options: {
+              svgo: false,
+              svgProps: { fill: 'currentColor' },
+            },
+          },
+        ],
+        as: '*.js',
+      },
+    },
+  },
 };
 
 const withNextIntl = createNextIntlPlugin();

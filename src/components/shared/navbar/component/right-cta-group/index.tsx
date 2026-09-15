@@ -4,6 +4,7 @@ import { LanguageSwitch } from '../language-switch';
 import { NavDialog } from '../nav-dialog';
 import { ThemeSwitch } from '../theme-switch';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import kuriboh from '@/assets/kuriboh.gif';
 
 export function RightCTAGroup() {
   return (
@@ -18,7 +19,7 @@ export function RightCTAGroup() {
       </div>
 
       <Avatar className="hidden md:block bg-white">
-        <AvatarImage src="/logo/kuriboh.png" />
+        <AvatarImage src={kuriboh.src} />
         <AvatarFallback>Duong Phan</AvatarFallback>
       </Avatar>
     </div>
