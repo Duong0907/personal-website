@@ -19,7 +19,7 @@ export function NavDialog() {
     { title: t('home'), url: ROOT_URL },
     { title: t('projects'), url: PROJECTS_URL },
     { title: t('aboutMe'), url: ABOUT_URL },
-    { title: t('blog'), url: BLOG_URL },
+    // { title: t('blog'), url: BLOG_URL },
   ];
 
   return (
