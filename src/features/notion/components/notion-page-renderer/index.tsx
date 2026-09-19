@@ -4,6 +4,8 @@ import 'react-notion-x/styles.css';
 import 'prismjs/themes/prism-tomorrow.css';
 import 'katex/dist/katex.min.css';
 
+import { Code } from 'react-notion-x/third-party/code';
+
 import Image, { type ImageProps } from 'next/image';
 import Link from 'next/link';
 import type { ComponentProps } from 'react';
@@ -33,7 +35,7 @@ export function NotionPageRenderer({ recordMap, ...props }: ComponentProps<typeo
         recordMap={recordMap}
         fullPage={false}
         darkMode={isDarkTheme}
-        components={{ nextImage: NotionImage, nextLink: Link, Collection: NotionCollection }}
+        components={{ nextImage: NotionImage, nextLink: Link, Collection: NotionCollection, Code }}
         {...props}
       />
     </div>

@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Personal website
+
+Personal portfolio site built with Next.js. Project content and my introduction are pulled from Notion, so I can use Notion as a CMS; content updates via a Notion webhook trigger cache invalidation. Supports English and Vietnamese (i18n).
+
+## Tech Stack
+
+- [Next.js 16](https://nextjs.org) (App Router, Turbopack)
+- React 19, TypeScript
+- Tailwind CSS 4
+- [next-intl](https://next-intl.dev) for i18n
+- [Notion API](https://developers.notion.com) + [react-notion-x](https://github.com/NotionX/react-notion-x) for content
+- pnpm, ESLint, Prettier, Husky + lint-staged, commitlint
 
 ## Getting Started
 
-First, run the development server:
+Install dependencies:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Copy `env.example` to `.env.local` and fill in the values:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+cp env.example .env.local
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Variable                                                  | Description                                  |
+| --------------------------------------------------------- | -------------------------------------------- |
+| `NOTION_TOKEN`                                            | Notion integration token                     |
+| `NOTION_DATABASE_ID`                                      | Notion database ID for blog/project content  |
+| `NOTION_DATASOURCE_ID`                                    | Notion data source ID                        |
+| `NOTION_WEBHOOK_SECRET`                                   | Secret for verifying Notion webhook requests |
+| `ABOUT_PAGE_ID`                                           | Notion page ID for the About page content    |
+| `FACEBOOK_URL`, `GITHUB_URL`, `EMAIL_URL`, `LINKEDIN_URL` | Social links shown in the footer             |
+| `SITE_URL`                                                | Public base URL of the deployed site         |
 
-## Learn More
+Run the development server:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+pnpm dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Open [http://localhost:3000](http://localhost:3000) to see the result.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Scripts
 
-## Deploy on Vercel
+| Command           | Description                    |
+| ----------------- | ------------------------------ |
+| `pnpm dev`        | Start dev server (Turbopack)   |
+| `pnpm build`      | Production build (Turbopack)   |
+| `pnpm start`      | Start production server        |
+| `pnpm lint`       | Run ESLint                     |
+| `pnpm format`     | Check formatting with Prettier |
+| `pnpm format:fix` | Auto-fix formatting            |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Project Structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+src/
+  app/
+    [locale]/        # localized routes: home, about, blog, articles, projects
+    api/              # route handlers (e.g. notion-webhook)
+  features/           # feature modules (notion, projects, theme)
+  components/         # shared and ui components
+  i18n/               # next-intl config
+  lib/, hooks/, interfaces/, styles/, assets/
+messages/             # en.json, vi.json translation files
+```
