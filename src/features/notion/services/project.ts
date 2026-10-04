@@ -7,6 +7,8 @@ import type { DataSourceRow, NotionPageResult } from '../types';
 
 const NOTION_DATASOURCE_ID = process.env.NOTION_DATASOURCE_ID || '';
 
+// TODO: Handle external image url structure:
+// { Thumbnail: { files: [{ external: { url: 'https://x.y/z.png' } }] } }
 const mapProjectEntity = (item: DataSourceRow): Project => {
   const { id, properties: props = {} } = item as NotionPageResult;
 

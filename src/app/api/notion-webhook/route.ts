@@ -6,7 +6,7 @@ export async function POST(request: Request) {
 
   let parsedBody: unknown;
 
-  // Validate
+  // Validate request body
   try {
     parsedBody = JSON.parse(rawBody);
   } catch {

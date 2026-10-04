@@ -31,8 +31,8 @@ export function NavDialog() {
       </DrawerTrigger>
       <DrawerContent className="p-8">
         <DrawerHeader>
-          <DrawerTitle>
-            <Logo onClick={closeDrawer} />
+          <DrawerTitle onClick={closeDrawer}>
+            <Logo />
           </DrawerTitle>
         </DrawerHeader>
         <NavigationMenu orientation="vertical" className="max-w-none">

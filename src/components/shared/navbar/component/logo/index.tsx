@@ -5,9 +5,9 @@ import type { MouseEventHandler } from 'react';
 
 type LogoProps = { onClick?: MouseEventHandler<HTMLDivElement> };
 
-export function Logo({ onClick }: LogoProps) {
+export function Logo() {
   return (
-    <div className="logo-wrapper flex justify-center" onClick={onClick}>
+    <div className="logo-wrapper flex justify-center">
       <Link href={ROOT_URL}>
         <Typography variant="h4" weight="bold">
           DUONG PHAN
