@@ -1,5 +1,5 @@
 import { notion } from '../notion';
-import { getAllProjects } from '../project';
+import { getAllProjects, getProjectById } from '../project';
 
 jest.mock('../notion', () => ({ notion: { dataSources: { query: jest.fn() } } }));
 jest.mock('next/cache', () => ({ unstable_cache: jest.fn() }));
@@ -102,5 +102,21 @@ describe('getAllProjects', () => {
 
     await expect(getAllProjects()).resolves.toEqual([]);
     expect(consoleError).toHaveBeenCalledWith('Error fetching projects from Notion:', expect.any(Error));
+  });
+});
+
+describe('getProjectById', () => {
+  it('returns the project with the matching id', async () => {
+    mockResults([fullRow, { id: 'page-2' }]);
+
+    await expect(getProjectById('page-1')).resolves.toEqual(
+      expect.objectContaining({ id: 'page-1', name: 'Portfolio' }),
+    );
+  });
+
+  it('returns undefined when no project has the id', async () => {
+    mockResults([fullRow]);
+
+    await expect(getProjectById('missing')).resolves.toBeUndefined();
   });
 });

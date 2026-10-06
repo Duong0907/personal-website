@@ -49,3 +49,9 @@ export const getAllProjects = cachedInProduction(fetchAllProjects, ['notion-get-
   tags: ['notion'],
   revalidate: NOTION_IMAGE_URL_CACHE_TTL_SECONDS,
 });
+
+export async function getProjectById(id: string): Promise<Project | undefined> {
+  const projects = await getAllProjects();
+
+  return projects.find((project) => project.id === id);
+}
