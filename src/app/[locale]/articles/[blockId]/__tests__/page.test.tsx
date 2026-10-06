@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import { notFound } from 'next/navigation';
 import { getNotionPage } from '@/features/notion/services/page';
-import { getAllProjects } from '@/features/notion/services/project';
-import ArticlePage, { generateStaticParams } from '../page';
+import { getAllProjects, getProjectById } from '@/features/notion/services/project';
+import ArticlePage, { generateMetadata, generateStaticParams } from '../page';
 
 jest.mock('next/navigation', () => ({ notFound: jest.fn() }));
 jest.mock('@/features/notion/services/page', () => ({ getNotionPage: jest.fn() }));
-jest.mock('@/features/notion/services/project', () => ({ getAllProjects: jest.fn() }));
+jest.mock('@/features/notion/services/project', () => ({ getAllProjects: jest.fn(), getProjectById: jest.fn() }));
 jest.mock('@/components/shared/back-button', () => ({ BackButton: () => 'back-button' }));
 jest.mock('@/components/shared/back-to-top-button', () => ({ GoToTop: () => 'go-to-top' }));
 jest.mock('next/dynamic', () => ({
@@ -50,5 +50,43 @@ describe('ArticlePage', () => {
     jest.mocked(getNotionPage).mockResolvedValue(null);
 
     await expect(ArticlePage({ params: Promise.resolve({ blockId: 'missing' }) })).rejects.toThrow('NEXT_NOT_FOUND');
+  });
+});
+
+describe('generateMetadata', () => {
+  const params = Promise.resolve({ locale: 'vi', blockId: 'p1' });
+
+  it('builds title, description, Open Graph and Twitter tags from the project', async () => {
+    jest.mocked(getProjectById).mockResolvedValue({
+      id: 'p1',
+      name: 'Portfolio',
+      status: 'Published',
+      technologies: 'Next.js',
+      features: 'Notion CMS, i18n',
+      imageUrl: '',
+    });
+
+    await expect(generateMetadata({ params })).resolves.toEqual({
+      title: 'Portfolio | Duong Phan',
+      description: 'Notion CMS, i18n',
+      openGraph: {
+        title: 'Portfolio | Duong Phan',
+        description: 'Notion CMS, i18n',
+        type: 'article',
+        locale: 'vi',
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: 'Portfolio | Duong Phan',
+        description: 'Notion CMS, i18n',
+      },
+    });
+    expect(getProjectById).toHaveBeenCalledWith('p1');
+  });
+
+  it('returns empty metadata when the project is unknown, so the layout metadata applies', async () => {
+    jest.mocked(getProjectById).mockResolvedValue(undefined);
+
+    await expect(generateMetadata({ params })).resolves.toEqual({});
   });
 });
