@@ -11,8 +11,11 @@ jest.mock('next/dynamic', () => ({
   __esModule: true,
   default: () =>
     function MockNotionPageRenderer({ recordMap }: { recordMap: { id: string } }) {
-      return `notion-page-renderer:${recordMap.id}`;
+      return require('react').createElement('div', { 'data-testid': 'notion-page-renderer' }, recordMap.id);
     },
+}));
+jest.mock('@/features/contact/contact-cta', () => ({
+  ContactCta: () => require('react').createElement('div', { 'data-testid': 'contact-cta' }),
 }));
 
 const recordMap = { id: 'about-record-map' };
@@ -43,7 +46,16 @@ describe('AboutPage', () => {
 
     expect(screen.getByRole('heading', { level: 1, name: 'title' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { level: 4, name: 'description' })).toBeInTheDocument();
-    expect(screen.getByText('notion-page-renderer:about-record-map')).toBeInTheDocument();
+    expect(screen.getByTestId('notion-page-renderer')).toHaveTextContent('about-record-map');
+  });
+
+  it('renders the contact CTA after the Notion content', async () => {
+    render(await AboutPage());
+
+    const renderer = screen.getByTestId('notion-page-renderer');
+    const cta = screen.getByTestId('contact-cta');
+
+    expect(renderer.compareDocumentPosition(cta) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 
   it('returns 404 when ABOUT_PAGE_ID is not set', async () => {

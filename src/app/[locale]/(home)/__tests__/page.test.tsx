@@ -3,6 +3,9 @@ import { getTranslations } from 'next-intl/server';
 import HomePage from '../page';
 
 jest.mock('next-intl/server', () => ({ getTranslations: jest.fn() }));
+jest.mock('@/features/contact/contact-cta', () => ({
+  ContactCta: () => require('react').createElement('div', { 'data-testid': 'contact-cta' }),
+}));
 
 const URLS = {
   FACEBOOK_URL: 'https://facebook.com/duong',
@@ -45,6 +48,18 @@ describe('HomePage', () => {
     expect(badge).toHaveAttribute('href', URLS.LINKEDIN_URL);
     expect(badge).toHaveAttribute('target', '_blank');
     expect(badge).toHaveTextContent('myLinkedIn');
+  });
+
+  it('renders the contact CTA between the description and the social icons', async () => {
+    const { container } = render(await HomePage());
+
+    const description = screen.getByRole('heading', { level: 4, name: 'description' });
+    const cta = screen.getByTestId('contact-cta');
+    const social = container.querySelector('.social-group') as HTMLElement;
+
+    expect(description.compareDocumentPosition(cta) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(cta.compareDocumentPosition(social) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(social).not.toContainElement(cta);
   });
 
   it.each([

@@ -5,6 +5,7 @@ import { BackButton } from '@/components/shared/back-button';
 import { GoToTop } from '@/components/shared/back-to-top-button';
 import { getAllProjects, getProjectById } from '@/features/notion/services/project';
 import { getNotionPage } from '@/features/notion/services/page';
+import { ContactCta } from '@/features/contact/contact-cta';
 
 const NotionPageRenderer = dynamic(() =>
   import('@/features/notion/components/notion-page-renderer').then((m) => m.NotionPageRenderer),
@@ -51,6 +52,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ blockI
       </div>
 
       <NotionPageRenderer recordMap={recordMap} />
+
+      <ContactCta />
 
       <GoToTop />
     </>
