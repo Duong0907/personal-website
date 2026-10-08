@@ -9,6 +9,7 @@ jest.mock('@/features/notion/services/page', () => ({ getNotionPage: jest.fn() }
 jest.mock('@/features/notion/services/project', () => ({ getAllProjects: jest.fn(), getProjectById: jest.fn() }));
 jest.mock('@/components/shared/back-button', () => ({ BackButton: () => 'back-button' }));
 jest.mock('@/components/shared/back-to-top-button', () => ({ GoToTop: () => 'go-to-top' }));
+jest.mock('@/features/contact/contact-cta', () => ({ ContactCta: () => 'contact-cta' }));
 jest.mock('next/dynamic', () => ({
   __esModule: true,
   default: () =>
@@ -43,7 +44,7 @@ describe('ArticlePage', () => {
     expect(getNotionPage).toHaveBeenCalledWith('abc');
     expect(container).toHaveTextContent('back-button');
     expect(container).toHaveTextContent('notion-page-renderer:article-record-map');
-    expect(container).toHaveTextContent('go-to-top');
+    expect(container).toHaveTextContent('notion-page-renderer:article-record-mapcontact-ctago-to-top');
   });
 
   it('returns 404 when the Notion page cannot be loaded', async () => {

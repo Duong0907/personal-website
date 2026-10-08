@@ -4,6 +4,7 @@ import { SectionHeader } from '@/components/shared/section-header';
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { getNotionPage } from '@/features/notion/services/page';
+import { ContactCta } from '@/features/contact/contact-cta';
 
 const NotionPageRenderer = dynamic(() =>
   import('@/features/notion/components/notion-page-renderer').then((m) => m.NotionPageRenderer),
@@ -27,6 +28,8 @@ export default async function AboutPage() {
       <SectionHeader title={t('title')} description={t('description')}></SectionHeader>
 
       <NotionPageRenderer recordMap={recordMap} />
+
+      <ContactCta />
     </>
   );
 }

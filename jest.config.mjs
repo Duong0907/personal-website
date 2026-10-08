@@ -38,6 +38,7 @@ const config = {
     // '@/' imports to relative paths, so match the path suffix, not '^@/'.
     '/i18n/navigation$': '<rootDir>/test/i18n-navigation-mock.tsx',
     '^next/image$': '<rootDir>/test/next-image-mock.tsx',
+    '^@marsidev/react-turnstile$': '<rootDir>/test/turnstile-mock.tsx',
     // Must stay after the specific '@/...' mappers above: the first match wins.
     '^@/(.*)$': '<rootDir>/src/$1',
   },

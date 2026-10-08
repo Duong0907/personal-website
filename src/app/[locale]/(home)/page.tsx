@@ -3,6 +3,7 @@ import { Typography } from '@/components/ui/typography';
 import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
+import { ContactCta } from '@/features/contact/contact-cta';
 
 import avatar from '@/assets/duong.webp';
 
@@ -74,6 +75,8 @@ export default async function HomePage() {
       <Typography className="text-center max-w-125" variant="h4" weight="light">
         {t('description')}
       </Typography>
+
+      <ContactCta />
 
       <div className="social-group flex gap-2">
         <SocialIcon path="/icons/facebook.svg" altText="facebook-icon" href={facebookUrl} />

@@ -5,7 +5,7 @@
   },
   "home": {
     "title": "Software Engineer",
-    "description": "2 years in Software Development. I build end-to-end web applications, question assumptions, and stay curious about what's next.",
+    "description": "1.5 years in Software Development. I build end-to-end web applications, question assumptions, and stay curious about what's next.",
     "openToWork": "Open to work",
     "myLinkedIn": "My LinkedIn"
   },
@@ -20,6 +20,18 @@
   "blog": {
     "title": "Blog",
     "description": "Write my thought"
+  },
+  "contact": {
+    "trigger": "Get in touch",
+    "title": "Get in touch",
+    "description": "Send me a message and I will reply by email.",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "submit": "Send message",
+    "error": "Something went wrong! Please try again.",
+    "success": "Thanks! Your message is on its way.",
+    "resume": "View résumé"
   },
   "navbar": {
     "home": "Home",

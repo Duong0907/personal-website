@@ -6,7 +6,7 @@
   "home": {
     "title": "Kỹ sư phần mềm",
     "description": "Mình yêu thích việc tạo ra những sản phẩm số mượt mà, từ khâu lên ý tưởng cho đến khi hoàn thiện sản phẩm cuối cùng.",
-    "openToWork": "Sẵn sàng cho cơ hội mới",
+    "openToWork": "Sẵn sàng nhận job",
     "myLinkedIn": "LinkedIn của mình"
   },
   "about-me": {
@@ -20,6 +20,18 @@
   "blog": {
     "title": "Bài viết",
     "description": "Nơi chia sẻ kiến thức"
+  },
+  "contact": {
+    "trigger": "Liên hệ với mình",
+    "title": "Liên hệ với mình",
+    "description": "Gửi lời nhắn cho mình, mình sẽ phản hồi qua email nhé.",
+    "name": "Tên của bạn",
+    "email": "Email",
+    "message": "Lời nhắn",
+    "submit": "Gửi thôi",
+    "error": "Lỗi rồi, bạn thử lại nhé!",
+    "success": "Cảm ơn bạn nhé! Lời nhắn đã được gửi đến mình.",
+    "resume": "Xem hồ sơ"
   },
   "navbar": {
     "home": "Trang chủ",
