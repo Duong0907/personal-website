@@ -204,3 +204,9 @@
     font-size: 1rem;
   }
 }
+
+/* Crossfade used by theme switch */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.3s;
+}

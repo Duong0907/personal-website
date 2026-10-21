@@ -1,4 +1,6 @@
+import { flushSync } from 'react-dom';
 import { Switch } from '@/components/ui/switch';
+import { withViewTransition } from '@/lib/utils';
 import { THEME } from './constant';
 import { useCurrentTheme } from '@/features/theme/hooks';
 import DarkModeIcon from '@material-design-icons/svg/filled/dark_mode.svg';
@@ -8,7 +10,8 @@ export function ThemeSwitch() {
   const { isDarkTheme, setTheme } = useCurrentTheme();
 
   const handleChangeTheme = (checked: Boolean) => {
-    setTheme(checked ? THEME.DARK : THEME.LIGHT);
+    // flushSync applies the theme class inside the transition callback
+    withViewTransition(() => flushSync(() => setTheme(checked ? THEME.DARK : THEME.LIGHT)));
   };
 
   return (
