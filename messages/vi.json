@@ -15,7 +15,8 @@
   },
   "projects": {
     "title": "Dự án cá nhân",
-    "description": "Những gì mình đã build"
+    "description": "Những gì mình đã build",
+    "website": "Trang web"
   },
   "blog": {
     "title": "Bài viết",

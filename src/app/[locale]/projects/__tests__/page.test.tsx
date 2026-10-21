@@ -9,8 +9,26 @@ jest.mock('@/features/notion/services/project', () => ({ getAllProjects: jest.fn
 jest.mock('@/features/projects/project-list', () => ({ ProjectList: jest.fn() }));
 
 const projects = [
-  { id: 'p1', name: 'One', status: 'Published', technologies: '', features: '', imageUrl: '' },
-  { id: 'p2', name: 'Two', status: 'Published', technologies: '', features: '', imageUrl: '' },
+  {
+    id: 'p1',
+    name: 'One',
+    status: 'Published',
+    technologies: '',
+    features: '',
+    imageUrl: '',
+    githubUrl: '',
+    websiteUrl: '',
+  },
+  {
+    id: 'p2',
+    name: 'Two',
+    status: 'Published',
+    technologies: '',
+    features: '',
+    imageUrl: '',
+    githubUrl: '',
+    websiteUrl: '',
+  },
 ];
 
 beforeEach(() => {

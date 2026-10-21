@@ -8,7 +8,16 @@ jest.mock('@/features/notion/services/project', () => ({ getAllProjects: jest.fn
 const getAllProjectsMock = jest.mocked(getAllProjects);
 
 function project(id: string) {
-  return { id, name: id, status: 'Published', technologies: '', features: '', imageUrl: '' };
+  return {
+    id,
+    name: id,
+    status: 'Published',
+    technologies: '',
+    features: '',
+    imageUrl: '',
+    githubUrl: '',
+    websiteUrl: '',
+  };
 }
 
 describe('sitemap', () => {

@@ -27,8 +27,26 @@ beforeEach(() => {
 describe('generateStaticParams', () => {
   it('returns one blockId per published project', async () => {
     jest.mocked(getAllProjects).mockResolvedValue([
-      { id: 'p1', name: '', status: '', technologies: '', features: '', imageUrl: '' },
-      { id: 'p2', name: '', status: '', technologies: '', features: '', imageUrl: '' },
+      {
+        id: 'p1',
+        name: '',
+        status: '',
+        technologies: '',
+        features: '',
+        imageUrl: '',
+        githubUrl: '',
+        websiteUrl: '',
+      },
+      {
+        id: 'p2',
+        name: '',
+        status: '',
+        technologies: '',
+        features: '',
+        imageUrl: '',
+        githubUrl: '',
+        websiteUrl: '',
+      },
     ]);
 
     await expect(generateStaticParams()).resolves.toEqual([{ blockId: 'p1' }, { blockId: 'p2' }]);
@@ -65,6 +83,8 @@ describe('generateMetadata', () => {
       technologies: 'Next.js',
       features: 'Notion CMS, i18n',
       imageUrl: '',
+      githubUrl: '',
+      websiteUrl: '',
     });
 
     await expect(generateMetadata({ params })).resolves.toEqual({

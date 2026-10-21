@@ -15,7 +15,8 @@
   },
   "projects": {
     "title": "Personal Projects",
-    "description": "Show what I built"
+    "description": "Show what I built",
+    "website": "Website"
   },
   "blog": {
     "title": "Blog",
