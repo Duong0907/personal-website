@@ -5,4 +5,6 @@ export interface Project {
   technologies: string;
   features: string;
   imageUrl: string;
+  githubUrl: string;
+  websiteUrl: string;
 }

@@ -30,6 +30,8 @@ describe('article opengraph-image', () => {
       technologies: 'Next.js, Notion',
       features: '',
       imageUrl: '',
+      githubUrl: '',
+      websiteUrl: '',
     });
 
     const result = await OpengraphImage({ params });

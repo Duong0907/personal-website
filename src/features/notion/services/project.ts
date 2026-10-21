@@ -19,6 +19,8 @@ const mapProjectEntity = (item: DataSourceRow): Project => {
     technologies: props.Technologies?.rich_text?.[0]?.plain_text ?? 'N/A',
     features: props.Features?.rich_text?.[0]?.plain_text ?? 'N/A',
     imageUrl: props.Thumbnail?.files?.[0]?.file?.url ?? '',
+    githubUrl: props.Github?.rich_text?.[0]?.text?.content ?? '',
+    websiteUrl: props.Website?.rich_text?.[0]?.text?.content ?? '',
   };
 };
 

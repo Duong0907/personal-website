@@ -29,7 +29,7 @@ export function NavDialog() {
           <MenuIcon className="size-6 text-foreground" />
         </Button>
       </DrawerTrigger>
-      <DrawerContent className="p-8">
+      <DrawerContent className="p-8" aria-describedby={undefined}>
         <DrawerHeader>
           <DrawerTitle onClick={closeDrawer}>
             <Logo />

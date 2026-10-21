@@ -18,6 +18,8 @@ const fullRow = {
     Technologies: { rich_text: [{ plain_text: 'Next.js' }] },
     Features: { rich_text: [{ plain_text: 'i18n' }] },
     Thumbnail: { files: [{ file: { url: 'https://example.com/a.png' } }] },
+    Github: { rich_text: [{ text: { content: 'https://github.com/me/portfolio' } }] },
+    Website: { rich_text: [{ text: { content: 'https://portfolio.dev' } }] },
   },
 };
 
@@ -27,6 +29,8 @@ const fallbackProject = {
   technologies: 'N/A',
   features: 'N/A',
   imageUrl: '',
+  githubUrl: '',
+  websiteUrl: '',
 };
 
 describe('getAllProjects', () => {
@@ -53,6 +57,8 @@ describe('getAllProjects', () => {
         technologies: 'Next.js',
         features: 'i18n',
         imageUrl: 'https://example.com/a.png',
+        githubUrl: 'https://github.com/me/portfolio',
+        websiteUrl: 'https://portfolio.dev',
       },
     ]);
   });
@@ -73,6 +79,8 @@ describe('getAllProjects', () => {
           Technologies: { rich_text: [] },
           Features: { rich_text: [] },
           Thumbnail: { files: [] },
+          Github: { rich_text: [] },
+          Website: { rich_text: [] },
         },
       },
     ]);

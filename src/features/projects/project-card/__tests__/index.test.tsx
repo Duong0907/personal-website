@@ -4,6 +4,7 @@ import { useInView } from '@/hooks/use-in-view';
 import { FALLBACK_CARD_IMAGE_URL } from '@/lib/constant';
 import { ProjectCard } from '..';
 
+jest.mock('next-intl', () => ({ useTranslations: () => (key: string) => key }));
 jest.mock('@/hooks/use-in-view', () => ({ useInView: jest.fn() }));
 
 function mockVisible(isVisible: boolean) {
@@ -18,6 +19,8 @@ const props = {
   imageUrl: 'https://example.com/a.png',
   priority: false,
   delayMs: 150,
+  githubUrl: 'https://github.com/me/portfolio',
+  websiteUrl: 'https://portfolio.dev',
 };
 
 describe('ProjectCard', () => {
@@ -28,10 +31,30 @@ describe('ProjectCard', () => {
   it('links to the article page and shows the project text', () => {
     render(<ProjectCard {...props} />);
 
-    expect(screen.getByRole('link')).toHaveAttribute('href', '/articles/p1');
+    expect(screen.getByRole('link', { name: 'Portfolio' })).toHaveAttribute('href', '/articles/p1');
     expect(screen.getByRole('heading', { level: 4, name: 'Portfolio' })).toBeInTheDocument();
     expect(screen.getByText('Next.js')).toBeInTheDocument();
     expect(screen.getByText('i18n, dark mode')).toBeInTheDocument();
+  });
+
+  it('links to GitHub and the website in a new tab', () => {
+    render(<ProjectCard {...props} />);
+
+    const github = screen.getByRole('link', { name: 'GitHub' });
+    const website = screen.getByRole('link', { name: 'website' });
+
+    expect(github).toHaveAttribute('href', 'https://github.com/me/portfolio');
+    expect(website).toHaveAttribute('href', 'https://portfolio.dev');
+    for (const link of [github, website]) {
+      expect(link).toHaveAttribute('target', '_blank');
+      expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+    }
+  });
+
+  it('hides the GitHub and website links when their URLs are empty', () => {
+    render(<ProjectCard {...props} githubUrl="" websiteUrl="" />);
+
+    expect(screen.getAllByRole('link')).toHaveLength(1);
   });
 
   it('shows the project image', () => {
@@ -40,7 +63,8 @@ describe('ProjectCard', () => {
     const image = screen.getByRole('img', { name: 'Portfolio' });
 
     expect(image).toHaveAttribute('src', 'https://example.com/a.png');
-    expect(image).toHaveAttribute('data-fill', 'true');
+    expect(image).toHaveAttribute('width', '40');
+    expect(image).toHaveAttribute('height', '40');
     expect(image).not.toHaveAttribute('data-priority');
   });
 
@@ -57,22 +81,22 @@ describe('ProjectCard', () => {
   });
 
   it('delays the reveal transition by delayMs', () => {
-    render(<ProjectCard {...props} />);
+    const { container } = render(<ProjectCard {...props} />);
 
-    expect(screen.getByRole('link').parentElement).toHaveStyle({ transitionDelay: '150ms' });
+    expect(container.firstChild).toHaveStyle({ transitionDelay: '150ms' });
   });
 
   it('stays hidden until it scrolls into view', () => {
-    render(<ProjectCard {...props} />);
+    const { container } = render(<ProjectCard {...props} />);
 
-    expect(screen.getByRole('link').parentElement).toHaveClass('opacity-0', 'translate-y-6');
+    expect(container.firstChild).toHaveClass('opacity-0', 'translate-y-6');
   });
 
   it('is shown once it is in view', () => {
     mockVisible(true);
 
-    render(<ProjectCard {...props} />);
+    const { container } = render(<ProjectCard {...props} />);
 
-    expect(screen.getByRole('link').parentElement).toHaveClass('opacity-100', 'translate-y-0');
+    expect(container.firstChild).toHaveClass('opacity-100', 'translate-y-0');
   });
 });
