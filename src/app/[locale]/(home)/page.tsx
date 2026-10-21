@@ -50,7 +50,7 @@ export default async function HomePage() {
       >
         <span className="size-2 rounded-full bg-green-500" />
 
-        <span className="relative grid">
+        <span className="relative grid justify-items-center">
           <Typography
             variant="body"
             weight="medium"

@@ -5,39 +5,39 @@
   },
   "home": {
     "title": "Kỹ sư phần mềm",
-    "description": "Mình yêu thích việc tạo ra những sản phẩm số mượt mà, từ khâu lên ý tưởng cho đến khi hoàn thiện sản phẩm cuối cùng.",
-    "openToWork": "Sẵn sàng nhận job",
-    "myLinkedIn": "LinkedIn của mình"
+    "description": "2 năm kinh nghiệm phát triển phần mềm. Mình xây dựng ứng dụng web từ đầu đến cuối, luôn đặt câu hỏi cho những điều hiển nhiên và giữ sự tò mò với những gì sắp tới.",
+    "openToWork": "Đang tìm việc",
+    "myLinkedIn": "LinkedIn mình"
   },
   "about-me": {
-    "title": "Tôi là ai?",
-    "description": "Kỹ sư phần mềm"
+    "title": "Mình là ai?",
+    "description": "Một kỹ sư phần mềm"
   },
   "projects": {
     "title": "Dự án cá nhân",
-    "description": "Những gì mình đã build",
+    "description": "Những sản phẩm mình đã làm",
     "website": "Trang web"
   },
   "blog": {
-    "title": "Bài viết",
-    "description": "Nơi chia sẻ kiến thức"
+    "title": "Blog",
+    "description": "Nơi mình viết ra suy nghĩ"
   },
   "contact": {
-    "trigger": "Liên hệ với mình",
+    "trigger": "Liên hệ",
     "title": "Liên hệ với mình",
-    "description": "Gửi lời nhắn cho mình, mình sẽ phản hồi qua email nhé.",
+    "description": "Gửi tin nhắn cho mình, mình sẽ phản hồi qua email.",
     "name": "Tên của bạn",
     "email": "Email",
-    "message": "Lời nhắn",
-    "submit": "Gửi thôi",
+    "message": "Tin nhắn",
+    "submit": "Gửi tin nhắn",
     "error": "Lỗi rồi, bạn thử lại nhé!",
     "success": "Cảm ơn bạn nhé! Lời nhắn đã được gửi đến mình.",
-    "resume": "Xem hồ sơ"
+    "resume": "Xem CV"
   },
   "navbar": {
     "home": "Trang chủ",
     "projects": "Dự án",
     "aboutMe": "Về mình",
-    "blog": "Bài viết"
+    "blog": "Blog"
   }
 }
