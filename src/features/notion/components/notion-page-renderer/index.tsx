@@ -1,10 +1,9 @@
 'use client';
 
 import 'react-notion-x/styles.css';
-import 'prismjs/themes/prism-tomorrow.css';
 import 'katex/dist/katex.min.css';
 
-import { Code } from 'react-notion-x/third-party/code';
+import { Code } from 'react-notion-x-code-block';
 
 import Image, { type ImageProps } from 'next/image';
 import Link from 'next/link';
