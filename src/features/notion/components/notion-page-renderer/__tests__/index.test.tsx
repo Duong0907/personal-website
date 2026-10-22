@@ -2,13 +2,14 @@ import { createRef } from 'react';
 import { render } from '@testing-library/react';
 import Link from 'next/link';
 import { NotionRenderer } from 'react-notion-x';
-import { Code } from 'react-notion-x/third-party/code';
+import { Code } from 'react-notion-x-code-block';
 import { useCurrentTheme } from '@/features/theme/hooks';
 import { useInView } from '@/hooks/use-in-view';
 import { NotionPageRenderer } from '..';
 
 jest.mock('react-notion-x', () => ({ NotionRenderer: jest.fn() }));
-jest.mock('react-notion-x/third-party/code', () => ({ Code: function MockCode() {} }));
+// Package ships only a "module" entry, which Jest cannot resolve.
+jest.mock('react-notion-x-code-block', () => ({ Code: function MockCode() {} }), { virtual: true });
 jest.mock('@/features/theme/hooks', () => ({ useCurrentTheme: jest.fn() }));
 jest.mock('@/hooks/use-in-view', () => ({ useInView: jest.fn() }));
 

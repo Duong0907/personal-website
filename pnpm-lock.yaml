@@ -51,9 +51,6 @@ importers:
       notion-client:
         specifier: ^7.12.1
         version: 7.12.1
-      prismjs:
-        specifier: ^1.30.0
-        version: 1.30.0
       react:
         specifier: 19.2.4
         version: 19.2.4
@@ -63,6 +60,9 @@ importers:
       react-notion-x:
         specifier: ^7.12.1
         version: 7.12.1(@babel/runtime@7.28.6)(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      react-notion-x-code-block:
+        specifier: ^0.4.1
+        version: 0.4.1(react-notion-x@7.12.1(@babel/runtime@7.28.6)(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)
       resend:
         specifier: ^6.32.0
         version: 6.32.0
@@ -4955,6 +4955,12 @@ packages:
     peerDependencies:
       react: ^0.14.0 || ^15.0.0 || ^16 || ^17 || ^18 || ^19
       react-dom: ^0.14.0 || ^15.0.0 || ^16 || ^17 || ^18 || ^19
+
+  react-notion-x-code-block@0.4.1:
+    resolution: {integrity: sha512-mhT5YR4/4Z4F4K07CzTNeVDfrZzrfxsMnqgjnjjn6wgdLGvughzECprJHMqoUS2Z0RedVEQ8dRLebdGQI9wqnQ==}
+    peerDependencies:
+      react: ^18.2.0
+      react-notion-x: ^6.16.0
 
   react-notion-x@7.12.1:
     resolution: {integrity: sha512-AgCRIzlDWuVT2U21mUggJK2qm+KNcIBl4GDWFBjz5x2rORz0vBy1XUEzUB1c4qfpD7M5kFoPe/DOusOtxBYtTQ==}
@@ -10985,6 +10991,12 @@ snapshots:
       react-dom: 19.2.4(react@19.2.4)
       react-lifecycles-compat: 3.0.4
       warning: 4.0.3
+
+  react-notion-x-code-block@0.4.1(react-notion-x@7.12.1(@babel/runtime@7.28.6)(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4):
+    dependencies:
+      '@babel/runtime': 7.28.6
+      react: 19.2.4
+      react-notion-x: 7.12.1(@babel/runtime@7.28.6)(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
 
   react-notion-x@7.12.1(@babel/runtime@7.28.6)(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
     dependencies:
