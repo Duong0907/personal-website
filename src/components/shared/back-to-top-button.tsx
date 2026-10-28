@@ -26,6 +26,7 @@ export function GoToTop() {
       onClick={() => window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' })}
       aria-label="Back to top"
       variant="clear"
+      size="icon"
       className="fixed bottom-6 right-6 z-50 rounded-full border border-foreground shadow-md hover:bg-foreground hover:text-background transition-colors"
     >
       <ArrowUpwardIcon className="size-6" />

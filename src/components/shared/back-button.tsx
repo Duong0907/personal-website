@@ -11,6 +11,7 @@ export function BackButton() {
     <Button
       onClick={() => router.back()}
       variant="clear"
+      size="icon"
       className="rounded-full border border-foreground hover:text-background hover:bg-foreground shadow-md"
     >
       <ArrowBackIcon className="size-6" />

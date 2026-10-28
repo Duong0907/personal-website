@@ -12,11 +12,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
 import { Spinner } from '@/components/ui/spinner';
+import { Textarea } from '@/components/ui/textarea';
+import { Typography } from '@/components/ui/typography';
 import { sendContactMessage, type ContactState } from '../actions';
-
-const fieldClass =
-  'border-input bg-background focus-visible:border-ring focus-visible:ring-ring/50 w-full rounded-lg border px-2.5 py-1.5 text-sm outline-none focus-visible:ring-3';
 
 const initialState: ContactState = { status: 'idle' };
 
@@ -31,35 +31,23 @@ function ContactForm() {
   }, [state]);
 
   return state.status === 'success' ? (
-    <p role="status">{t('success')}</p>
+    <Typography variant="body" weight="regular" role="status">
+      {t('success')}
+    </Typography>
   ) : (
     <form action={formAction} className="relative flex flex-col gap-3">
-      <label className="flex flex-col gap-1">
+      <Typography variant="label" weight="regular" className="flex flex-col gap-1.5">
         {t('name')}
-        <input name="name" required maxLength={100} defaultValue={state.values?.name} className={fieldClass} />
-      </label>
-      <label className="flex flex-col gap-1">
+        <Input name="name" required maxLength={100} defaultValue={state.values?.name} />
+      </Typography>
+      <Typography variant="label" weight="regular" className="flex flex-col gap-1.5">
         {t('email')}
-        <input
-          name="email"
-          type="email"
-          required
-          maxLength={200}
-          defaultValue={state.values?.email}
-          className={fieldClass}
-        />
-      </label>
-      <label className="flex flex-col gap-1">
+        <Input name="email" type="email" required maxLength={200} defaultValue={state.values?.email} />
+      </Typography>
+      <Typography variant="label" weight="regular" className="flex flex-col gap-1.5">
         {t('message')}
-        <textarea
-          name="message"
-          required
-          maxLength={5000}
-          rows={5}
-          defaultValue={state.values?.message}
-          className={fieldClass}
-        />
-      </label>
+        <Textarea name="message" required maxLength={5000} rows={5} defaultValue={state.values?.message} />
+      </Typography>
       <input
         type="text"
         name="ref_code"
@@ -68,11 +56,15 @@ function ContactForm() {
         aria-hidden="true"
         className="absolute -left-2499.75"
       />
-      <Turnstile ref={widget} siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? ''} />
+      <Turnstile
+        ref={widget}
+        siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? ''}
+        options={{ size: 'flexible' }}
+      />
       {state.status === 'error' && (
-        <p role="alert" className="text-destructive">
+        <Typography variant="body" weight="regular" role="alert" className="text-destructive">
           {t('error')}
-        </p>
+        </Typography>
       )}
       <Button type="submit" disabled={pending}>
         {pending && <Spinner />}

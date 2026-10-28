@@ -25,7 +25,7 @@ export function NavDialog() {
   return (
     <Drawer direction="top" open={isOpen} onOpenChange={setIsOpen}>
       <DrawerTrigger asChild>
-        <Button variant="outline">
+        <Button variant="outline" size="icon" aria-label="Menu">
           <MenuIcon className="size-6 text-foreground" />
         </Button>
       </DrawerTrigger>
