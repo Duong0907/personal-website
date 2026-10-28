@@ -117,6 +117,9 @@
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
 
+  /* Ring color (and any other color utility) */
+  --color-highlight: var(--highlight);
+
   /* Text color */
   --text-color-highlight: var(--highlight);
 

@@ -36,7 +36,12 @@ describe('Button', () => {
   it('applies the default variant and size', () => {
     render(<Button>Save</Button>);
 
-    expect(screen.getByRole('button', { name: 'Save' })).toHaveClass('bg-foreground', 'h-8');
+    expect(screen.getByRole('button', { name: 'Save' })).toHaveClass(
+      'bg-foreground',
+      'h-11',
+      'rounded-lg',
+      'uppercase',
+    );
   });
 
   it('applies the requested variant and size', () => {
@@ -48,8 +53,17 @@ describe('Button', () => {
 
     const button = screen.getByRole('button', { name: 'Save' });
 
-    expect(button).toHaveClass('border-border', 'size-8');
+    expect(button).toHaveClass('border-foreground/20', 'size-11');
     expect(button).not.toHaveClass('bg-foreground');
+  });
+
+  it('drops control height and padding for the link variant', () => {
+    render(<Button variant="link">Read more</Button>);
+
+    const button = screen.getByRole('button', { name: 'Read more' });
+
+    expect(button).toHaveClass('h-auto', 'px-0', 'normal-case');
+    expect(button).not.toHaveClass('h-11', 'px-6');
   });
 
   it('merges a custom className', () => {

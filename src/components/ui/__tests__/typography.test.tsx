@@ -32,6 +32,27 @@ describe('Typography', () => {
     expect(screen.getByText('Text').tagName).toBe('P');
   });
 
+  it('renders the label variant as a label that names its field', () => {
+    render(
+      <Typography variant="label" weight="regular">
+        Email
+        <input />
+      </Typography>,
+    );
+
+    expect(screen.getByRole('textbox', { name: 'Email' })).toBeInTheDocument();
+  });
+
+  it('passes extra attributes through to the element', () => {
+    render(
+      <Typography variant="body" weight="regular" id="msg" role="alert">
+        Text
+      </Typography>,
+    );
+
+    expect(screen.getByRole('alert')).toHaveAttribute('id', 'msg');
+  });
+
   it.each([
     ['regular', 'font-normal'],
     ['medium', 'font-medium'],

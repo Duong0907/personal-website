@@ -2,13 +2,15 @@ import { cn } from '@/lib/utils';
 import { cva } from 'class-variance-authority';
 import { type ElementType } from 'react';
 
-type TypographyVariat = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body';
+type TypographyVariat = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body' | 'label';
 type TypographyWeight = 'regular' | 'medium' | 'bold' | 'black' | 'light';
-type TypographyProps = {
+// Extra attributes (id, role, htmlFor...) pass through, so Base UI `render` props can target Typography.
+type TypographyProps = Omit<React.HTMLAttributes<HTMLElement>, 'className'> & {
   variant: TypographyVariat;
   weight: TypographyWeight;
   className?: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
+  htmlFor?: string;
 };
 
 const typographyVariants = cva('', {
@@ -21,6 +23,7 @@ const typographyVariants = cva('', {
       h5: 'text-lg',
       h6: 'text-base',
       body: '',
+      label: '',
     },
     weight: {
       regular: 'font-normal',
@@ -40,10 +43,15 @@ const elementMap: Record<string, ElementType> = {
   h5: 'h5',
   h6: 'h6',
   body: 'p',
+  label: 'label',
 };
 
-export function Typography({ variant, weight, className, children }: TypographyProps) {
+export function Typography({ variant, weight, className, children, ...props }: TypographyProps) {
   const Component = elementMap[variant] as ElementType;
 
-  return <Component className={cn(typographyVariants({ variant, weight, className }))}>{children}</Component>;
+  return (
+    <Component className={cn(typographyVariants({ variant, weight, className }))} {...props}>
+      {children}
+    </Component>
+  );
 }
