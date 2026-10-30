@@ -24,9 +24,11 @@ export function LanguageSwitch() {
     <Switch
       checked={locale !== DEFAULT_LOCALE}
       onCheckedChange={handleChangeLocale}
+      // Checked means Vietnamese; the label names that state in its own language.
+      aria-label="Tiếng Việt"
       size="xl"
-      iconOn={<Image src="/icons/vietnam.svg" width={24} height={24} alt="Vietnamese" />}
-      iconOff={<Image src="/icons/england.svg" width={24} height={24} alt="England" />}
+      iconOn={<Image src="/icons/vietnam.svg" width={24} height={24} alt="" />}
+      iconOff={<Image src="/icons/england.svg" width={24} height={24} alt="" />}
       className="data-checked:bg-highlight"
       disabled={isPending}
     />

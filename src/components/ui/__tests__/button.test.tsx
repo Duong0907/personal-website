@@ -53,7 +53,7 @@ describe('Button', () => {
 
     const button = screen.getByRole('button', { name: 'Save' });
 
-    expect(button).toHaveClass('border-foreground/20', 'size-11');
+    expect(button).toHaveClass('border-foreground/50', 'size-11');
     expect(button).not.toHaveClass('bg-foreground');
   });
 

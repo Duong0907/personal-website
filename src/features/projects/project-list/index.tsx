@@ -6,7 +6,7 @@ const REVEAL_STAGGER_MAX_STEPS = 6;
 
 export function ProjectList({ projects }: { projects: Project[] }) {
   return (
-    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <ul className="flex w-full flex-col md:w-176 gap-4">
       {projects.map((project, index) => {
         const { id, name, features, technologies, imageUrl, githubUrl, websiteUrl } = project;
 

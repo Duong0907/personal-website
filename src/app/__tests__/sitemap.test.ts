@@ -21,7 +21,7 @@ function project(id: string) {
 }
 
 describe('sitemap', () => {
-  it('lists every static path for every locale when there are no projects', async () => {
+  it('lists every static path except the empty blog for every locale', async () => {
     getAllProjectsMock.mockResolvedValue([]);
 
     const urls = (await sitemap()).map((entry) => entry.url);
@@ -30,11 +30,9 @@ describe('sitemap', () => {
       `${SITE_URL}/en`,
       `${SITE_URL}/en/about`,
       `${SITE_URL}/en/projects`,
-      `${SITE_URL}/en/blog`,
       `${SITE_URL}/vi`,
       `${SITE_URL}/vi/about`,
       `${SITE_URL}/vi/projects`,
-      `${SITE_URL}/vi/blog`,
     ]);
   });
 
@@ -43,8 +41,8 @@ describe('sitemap', () => {
 
     const urls = (await sitemap()).map((entry) => entry.url);
 
-    expect(urls).toHaveLength(12);
-    expect(urls.slice(8)).toEqual([
+    expect(urls).toHaveLength(10);
+    expect(urls.slice(6)).toEqual([
       `${SITE_URL}/en/articles/p1`,
       `${SITE_URL}/en/articles/p2`,
       `${SITE_URL}/vi/articles/p1`,

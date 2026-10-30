@@ -4,6 +4,7 @@ import { useCurrentTheme } from '@/features/theme/hooks';
 import { ThemeSwitch } from '..';
 
 jest.mock('@/features/theme/hooks', () => ({ useCurrentTheme: jest.fn() }));
+jest.mock('next-intl', () => ({ useTranslations: () => (key: string) => key }));
 
 const setTheme = jest.fn();
 
@@ -16,7 +17,7 @@ describe('ThemeSwitch', () => {
     mockTheme(false);
     render(<ThemeSwitch />);
 
-    const toggle = screen.getByRole('switch');
+    const toggle = screen.getByRole('switch', { name: 'darkMode' });
     expect(toggle).not.toBeChecked();
 
     await userEvent.click(toggle);

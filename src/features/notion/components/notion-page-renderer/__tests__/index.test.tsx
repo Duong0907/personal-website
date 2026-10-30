@@ -1,24 +1,20 @@
-import { createRef } from 'react';
 import { render } from '@testing-library/react';
 import Link from 'next/link';
 import { NotionRenderer } from 'react-notion-x';
 import { Code } from 'react-notion-x-code-block';
 import { useCurrentTheme } from '@/features/theme/hooks';
-import { useInView } from '@/hooks/use-in-view';
 import { NotionPageRenderer } from '..';
 
 jest.mock('react-notion-x', () => ({ NotionRenderer: jest.fn() }));
 // Package ships only a "module" entry, which Jest cannot resolve.
 jest.mock('react-notion-x-code-block', () => ({ Code: function MockCode() {} }), { virtual: true });
 jest.mock('@/features/theme/hooks', () => ({ useCurrentTheme: jest.fn() }));
-jest.mock('@/hooks/use-in-view', () => ({ useInView: jest.fn() }));
 
 const rendererMock = jest.mocked(NotionRenderer);
 const recordMap = { block: {} } as never;
 
-function setup({ isDarkTheme = false, isVisible = false } = {}) {
+function setup({ isDarkTheme = false } = {}) {
   jest.mocked(useCurrentTheme).mockReturnValue({ isDarkTheme, theme: undefined, setTheme: jest.fn() });
-  jest.mocked(useInView).mockReturnValue({ ref: createRef<HTMLElement>(), isVisible });
 }
 
 function rendererProps() {
@@ -61,21 +57,5 @@ describe('NotionPageRenderer', () => {
     render(<NotionPageRenderer recordMap={recordMap} rootPageId="root-id" />);
 
     expect(rendererProps().rootPageId).toBe('root-id');
-  });
-
-  it('stays hidden until it scrolls into view', () => {
-    setup({ isVisible: false });
-
-    const { container } = render(<NotionPageRenderer recordMap={recordMap} />);
-
-    expect(container.firstChild).toHaveClass('opacity-0', 'translate-y-6');
-  });
-
-  it('is shown once it is in view', () => {
-    setup({ isVisible: true });
-
-    const { container } = render(<NotionPageRenderer recordMap={recordMap} />);
-
-    expect(container.firstChild).toHaveClass('opacity-100', 'translate-y-0');
   });
 });

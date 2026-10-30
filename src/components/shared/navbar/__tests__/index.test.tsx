@@ -22,7 +22,7 @@ describe('NavBar', () => {
   it('renders the logo and the right-side controls', () => {
     render(<NavBar />);
 
-    expect(screen.getByRole('link', { name: 'DUONG PHAN' })).toHaveAttribute('href', '/');
+    expect(screen.getByRole('link', { name: 'name' })).toHaveAttribute('href', '/');
     expect(screen.getByText('right-cta-group')).toBeInTheDocument();
   });
 });

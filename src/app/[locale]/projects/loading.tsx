@@ -5,21 +5,19 @@ const CARD_COUNT = 4;
 
 function ProjectCardSkeleton() {
   return (
-    <Card>
-      <div className="flex items-start gap-3">
-        <Skeleton className="size-10 shrink-0 rounded-lg" />
-        <div className="flex flex-1 flex-col gap-2">
-          <Skeleton className="h-5 w-1/2" />
-          <Skeleton className="h-4 w-3/4" />
-        </div>
+    <Card className="gap-4 p-6">
+      <div className="flex items-center gap-4">
+        <Skeleton className="size-14 shrink-0 rounded-lg" />
+        <Skeleton className="h-7 w-1/2" />
       </div>
 
       <div className="flex flex-col gap-2">
-        <Skeleton className="h-4 w-full" />
-        <Skeleton className="h-4 w-5/6" />
+        <Skeleton className="h-5 w-full" />
+        <Skeleton className="h-5 w-5/6" />
       </div>
 
-      <Skeleton className="h-4 w-28" />
+      <Skeleton className="h-6 w-2/3" />
+      <Skeleton className="h-5 w-40" />
     </Card>
   );
 }
@@ -32,7 +30,7 @@ export default function Loading() {
         <Skeleton className="h-7 w-80 max-w-full mb-16" />
       </div>
 
-      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <ul className="flex flex-col gap-4">
         {Array.from({ length: CARD_COUNT }, (_, index) => (
           <li key={index}>
             <ProjectCardSkeleton />

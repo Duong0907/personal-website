@@ -3,7 +3,8 @@ import { routing } from '@/i18n/routing';
 import { getAllProjects } from '@/features/notion/services/project';
 import { SITE_URL } from '@/lib/constant';
 
-const STATIC_PATHS = ['', '/about', '/projects', '/blog'];
+// /blog stays out until it has posts.
+const STATIC_PATHS = ['', '/about', '/projects'];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const projects = await getAllProjects();

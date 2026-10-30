@@ -32,7 +32,7 @@ describe('ProjectCard', () => {
     render(<ProjectCard {...props} />);
 
     expect(screen.getByRole('link', { name: 'Portfolio' })).toHaveAttribute('href', '/articles/p1');
-    expect(screen.getByRole('heading', { level: 4, name: 'Portfolio' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2, name: 'Portfolio' })).toBeInTheDocument();
     expect(screen.getByText('Next.js')).toBeInTheDocument();
     expect(screen.getByText('i18n, dark mode')).toBeInTheDocument();
   });
@@ -57,33 +57,51 @@ describe('ProjectCard', () => {
     expect(screen.getAllByRole('link')).toHaveLength(1);
   });
 
-  it('shows the project image', () => {
-    render(<ProjectCard {...props} />);
+  it('shows the project image as decoration', () => {
+    const { container } = render(<ProjectCard {...props} />);
 
-    const image = screen.getByRole('img', { name: 'Portfolio' });
+    const image = container.querySelector('img');
 
     expect(image).toHaveAttribute('src', 'https://example.com/a.png');
-    expect(image).toHaveAttribute('width', '40');
-    expect(image).toHaveAttribute('height', '40');
+    expect(image).toHaveAttribute('alt', '');
+    expect(image).toHaveAttribute('width', '56');
+    expect(image).toHaveAttribute('height', '56');
     expect(image).not.toHaveAttribute('data-priority');
   });
 
   it('uses the fallback image when imageUrl is empty', () => {
-    render(<ProjectCard {...props} imageUrl="" />);
+    const { container } = render(<ProjectCard {...props} imageUrl="" />);
 
-    expect(screen.getByRole('img', { name: 'Portfolio' })).toHaveAttribute('src', FALLBACK_CARD_IMAGE_URL);
+    expect(container.querySelector('img')).toHaveAttribute('src', FALLBACK_CARD_IMAGE_URL);
   });
 
   it('marks the image as priority when asked', () => {
-    render(<ProjectCard {...props} priority />);
+    const { container } = render(<ProjectCard {...props} priority />);
 
-    expect(screen.getByRole('img', { name: 'Portfolio' })).toHaveAttribute('data-priority', 'true');
+    expect(container.querySelector('img')).toHaveAttribute('data-priority', 'true');
   });
 
   it('delays the reveal transition by delayMs', () => {
     const { container } = render(<ProjectCard {...props} />);
 
     expect(container.firstChild).toHaveStyle({ transitionDelay: '150ms' });
+  });
+
+  it('renders as a list item with the stack as separate entries', () => {
+    const { container } = render(<ProjectCard {...props} technologies="Next.js, Notion, N/A" />);
+
+    expect(container.firstChild?.nodeName).toBe('LI');
+    expect(screen.getAllByRole('listitem').map((item) => item.textContent)).toEqual([
+      expect.any(String),
+      'Next.js',
+      'Notion',
+    ]);
+  });
+
+  it('skips the reveal motion for reduced-motion users', () => {
+    const { container } = render(<ProjectCard {...props} />);
+
+    expect(container.firstChild).toHaveClass('motion-reduce:opacity-100', 'motion-reduce:transition-none');
   });
 
   it('stays hidden until it scrolls into view', () => {

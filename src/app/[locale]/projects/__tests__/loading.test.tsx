@@ -8,12 +8,12 @@ describe('Projects Loading', () => {
     expect(screen.getByRole('status', { name: 'Loading' })).toBeInTheDocument();
   });
 
-  it('shows four placeholder project cards in the project grid', () => {
+  it('shows four placeholder project cards in a single column', () => {
     const { container } = render(<Loading />);
 
-    const grid = container.querySelector('ul.grid');
+    const list = container.querySelector('ul');
 
-    expect(grid).toHaveClass('grid-cols-1', 'sm:grid-cols-2');
-    expect(grid?.querySelectorAll('li [data-slot="card"]')).toHaveLength(4);
+    expect(list).toHaveClass('flex-col');
+    expect(list?.querySelectorAll('li [data-slot="card"]')).toHaveLength(4);
   });
 });

@@ -31,11 +31,27 @@ describe('NavBarItem', () => {
     expect(screen.getByText('Projects')).not.toHaveClass('text-highlight!');
   });
 
-  it('does not highlight on a nested path of the href', () => {
+  it('highlights the item on a nested path of the href', () => {
     setMockPathname('/projects/abc');
 
     render(<NavBarItem title="Projects" href="/projects" />);
 
-    expect(screen.getByRole('link', { name: 'Projects' })).not.toHaveClass('border-highlight!');
+    expect(screen.getByRole('link', { name: 'Projects' })).toHaveAttribute('aria-current', 'page');
+  });
+
+  it('does not highlight Projects on an article page', () => {
+    setMockPathname('/articles/abc');
+
+    render(<NavBarItem title="Projects" href="/projects" />);
+
+    expect(screen.getByRole('link', { name: 'Projects' })).not.toHaveAttribute('aria-current');
+  });
+
+  it('highlights Home only on the root path', () => {
+    setMockPathname('/projects');
+
+    render(<NavBarItem title="Home" href="/" />);
+
+    expect(screen.getByRole('link', { name: 'Home' })).not.toHaveAttribute('aria-current');
   });
 });

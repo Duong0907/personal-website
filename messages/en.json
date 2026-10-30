@@ -10,17 +10,20 @@
     "myLinkedIn": "My LinkedIn"
   },
   "about-me": {
-    "title": "Who is me?",
+    "title": "About me",
     "description": "A software engineer"
   },
   "projects": {
     "title": "Personal Projects",
-    "description": "Show what I built",
-    "website": "Website"
+    "description": "What I've built, end to end",
+    "website": "Website",
+    "source": "Source",
+    "stack": "Stack"
   },
   "blog": {
     "title": "Blog",
-    "description": "Write my thought"
+    "description": "Notes on what I build",
+    "empty": "No posts yet."
   },
   "contact": {
     "trigger": "Get in touch",
@@ -30,14 +33,43 @@
     "email": "Email",
     "message": "Message",
     "submit": "Send message",
-    "error": "Something went wrong! Please try again.",
+    "error": "Your message was not sent. Try again, or email me directly.",
     "success": "Thanks! Your message is on its way.",
-    "resume": "View résumé"
+    "resume": "View résumé",
+    "emailMe": "Email me",
+    "leadIn": "Questions about this build, or something you are working on?"
   },
   "navbar": {
     "home": "Home",
     "projects": "Projects",
     "aboutMe": "About me",
-    "blog": "Blog"
+    "blog": "Blog",
+    "darkMode": "Dark mode",
+    "menu": "Menu",
+    "close": "Close menu",
+    "back": "Back"
+  },
+  "site": {
+    "name": "Duong Phan"
+  },
+  "notion": {
+    "englishOnly": "The content below is written in English."
+  },
+  "not-found": {
+    "title": "Page not found",
+    "description": "This page does not exist or has moved.",
+    "home": "Back to home"
+  },
+  "error": {
+    "title": "This page did not load",
+    "description": "The content could not be fetched. Try again in a moment.",
+    "retry": "Try again",
+    "home": "Back to home"
+  },
+  "social": {
+    "facebook": "Facebook",
+    "email": "Email",
+    "linkedin": "LinkedIn",
+    "github": "GitHub"
   }
 }

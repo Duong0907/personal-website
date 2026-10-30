@@ -1,6 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { Footer } from '..';
 
+jest.mock('next-intl', () => ({ useTranslations: () => (key: string) => key }));
+
 describe('Footer', () => {
   afterEach(() => {
     jest.useRealTimers();
@@ -11,6 +13,6 @@ describe('Footer', () => {
 
     render(<Footer />);
 
-    expect(screen.getByText('Phan Thanh Duong @ 2030')).toBeInTheDocument();
+    expect(screen.getByText('name © 2030')).toBeInTheDocument();
   });
 });

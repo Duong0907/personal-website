@@ -12,8 +12,9 @@ import { notFound } from 'next/navigation';
 
 const geist = Geist({ subsets: ['latin'], variable: '--font-sans' });
 
+// Variable font: light, medium and bold render as real weights, not synthesized ones.
 const sourceSerif4 = Source_Serif_4({
-  weight: '400',
+  subsets: ['latin', 'vietnamese'],
   variable: '--font-source-serif-4',
 });
 
@@ -23,7 +24,7 @@ import { ThemeProvider } from '@/features/theme/provider';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="root-layout text-foreground source-serif-4-regular space-y-18 px-3 flex flex-col items-center">
+    <div className="root-layout text-foreground space-y-18 px-3 flex flex-col items-center">
       <NavBar />
       <div className="md:min-w-139 md:max-w-250">{children}</div>
       <Footer />
@@ -76,7 +77,11 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className={cn('font-sans [scrollbar-gutter:stable]', geist.variable)} suppressHydrationWarning>
+    <html
+      lang={locale}
+      className={cn('font-sans [scrollbar-gutter:stable]', geist.variable, sourceSerif4.variable)}
+      suppressHydrationWarning
+    >
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>

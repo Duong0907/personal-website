@@ -20,7 +20,7 @@ import { sendContactMessage, type ContactState } from '../actions';
 
 const initialState: ContactState = { status: 'idle' };
 
-function ContactForm() {
+function ContactForm({ emailUrl }: { emailUrl?: string }) {
   const t = useTranslations('contact');
   const [state, formAction, pending] = useActionState(sendContactMessage, initialState);
   const widget = useRef<TurnstileInstance>(null);
@@ -38,11 +38,18 @@ function ContactForm() {
     <form action={formAction} className="relative flex flex-col gap-3">
       <Typography variant="label" weight="regular" className="flex flex-col gap-1.5">
         {t('name')}
-        <Input name="name" required maxLength={100} defaultValue={state.values?.name} />
+        <Input name="name" required maxLength={100} autoComplete="name" defaultValue={state.values?.name} />
       </Typography>
       <Typography variant="label" weight="regular" className="flex flex-col gap-1.5">
         {t('email')}
-        <Input name="email" type="email" required maxLength={200} defaultValue={state.values?.email} />
+        <Input
+          name="email"
+          type="email"
+          required
+          maxLength={200}
+          autoComplete="email"
+          defaultValue={state.values?.email}
+        />
       </Typography>
       <Typography variant="label" weight="regular" className="flex flex-col gap-1.5">
         {t('message')}
@@ -63,7 +70,12 @@ function ContactForm() {
       />
       {state.status === 'error' && (
         <Typography variant="body" weight="regular" role="alert" className="text-destructive">
-          {t('error')}
+          {t('error')}{' '}
+          {emailUrl && (
+            <a href={emailUrl} className="underline underline-offset-4">
+              {t('emailMe')}
+            </a>
+          )}
         </Typography>
       )}
       <Button type="submit" disabled={pending}>
@@ -74,7 +86,7 @@ function ContactForm() {
   );
 }
 
-export function ContactDialog() {
+export function ContactDialog({ emailUrl }: { emailUrl?: string }) {
   const t = useTranslations('contact');
   // Remounting the form on open discards the previous attempt's state.
   const [session, setSession] = useState(0);
@@ -87,7 +99,7 @@ export function ContactDialog() {
           <DialogTitle>{t('title')}</DialogTitle>
           <DialogDescription>{t('description')}</DialogDescription>
         </DialogHeader>
-        <ContactForm key={session} />
+        <ContactForm key={session} emailUrl={emailUrl} />
       </DialogContent>
     </Dialog>
   );

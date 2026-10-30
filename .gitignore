@@ -47,4 +47,7 @@ next-env.d.ts
 # agent files
 AGENTS.md
 CLAUDE.md
+PRODUCT.md
+DESIGN_SYSTEM.md
 docs/
+.claude/
