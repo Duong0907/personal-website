@@ -9,13 +9,35 @@ import { Link } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
 import { useInView } from '@/hooks/use-in-view';
 import { FALLBACK_CARD_IMAGE_URL } from '@/lib/constant';
+import { TechList } from '../tech-list';
 
-// z-10 keeps it clickable above the stretched title link.
-function ProjectLink({ href, children }: { href: string; children: React.ReactNode }) {
+// z-10 keeps the links clickable above the card's stretched title link.
+export function ProjectLinks({ githubUrl, websiteUrl }: { githubUrl: string; websiteUrl: string }) {
+  const t = useTranslations('projects');
+
+  if (!githubUrl && !websiteUrl) return null;
+
   return (
-    <ExternalLink href={href} className="relative z-10 text-xs opacity-60 transition-opacity hover:opacity-100">
-      {children}
-    </ExternalLink>
+    <div className="flex gap-5 text-sm">
+      {githubUrl && (
+        <ExternalLink
+          href={githubUrl}
+          className="relative z-10 text-foreground/80 underline-offset-4 transition-colors hover:text-foreground hover:underline"
+        >
+          <GithubIcon className="size-4" />
+          GitHub
+        </ExternalLink>
+      )}
+      {websiteUrl && (
+        <ExternalLink
+          href={websiteUrl}
+          className="relative z-10 text-foreground/80 underline-offset-4 transition-colors hover:text-foreground hover:underline"
+        >
+          <LanguageIcon className="size-4" />
+          {t('website')}
+        </ExternalLink>
+      )}
+    </div>
   );
 }
 
@@ -40,59 +62,42 @@ export function ProjectCard({
   priority: boolean;
   delayMs: number;
 }) {
-  const t = useTranslations('projects');
-  const { ref, isVisible } = useInView<HTMLDivElement>();
+  const { ref, isVisible } = useInView<HTMLLIElement>();
 
   return (
-    <div
+    <li
       ref={ref}
       style={{ transitionDelay: `${delayMs}ms` }}
       className={cn(
-        'transition-all duration-500 ease-out',
+        'transition-all duration-500 ease-out motion-reduce:transition-none motion-reduce:opacity-100 motion-reduce:translate-y-0',
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6',
       )}
     >
-      {/* The title link stretches over the card, so the icon links are not nested inside it. */}
-      <Card className="relative">
-        <div className="flex items-start gap-3">
+      {/* The title link stretches over the card, so the external links are not nested inside it. */}
+      <Card className="relative gap-4 p-6">
+        <div className="flex items-center gap-4">
           <Image
             src={imageUrl || FALLBACK_CARD_IMAGE_URL}
-            alt={name}
-            width={40}
-            height={40}
+            alt=""
+            width={56}
+            height={56}
             draggable={false}
             priority={priority}
-            className="size-10 shrink-0 rounded-lg object-cover"
+            className="size-14 shrink-0 rounded-lg object-cover"
           />
-          <div>
-            <h4 className="text-lg font-semibold leading-tight">
-              <Link href={`/articles/${id}`} className="after:absolute after:inset-0">
-                {name}
-              </Link>
-            </h4>
-            <p className="mt-1 text-sm text-foreground/50">{technologies}</p>
-          </div>
+          <h2 className="text-2xl font-semibold leading-tight">
+            <Link href={`/articles/${id}`} className="after:absolute after:inset-0 after:rounded-xl">
+              {name}
+            </Link>
+          </h2>
         </div>
 
-        <p className="flex-1 text-sm text-foreground/60">{features}</p>
+        <p className="wrap-break-word text-base text-foreground/80">{features}</p>
 
-        {(githubUrl || websiteUrl) && (
-          <div className="flex gap-4">
-            {githubUrl && (
-              <ProjectLink href={githubUrl}>
-                <GithubIcon className="size-4" />
-                GitHub
-              </ProjectLink>
-            )}
-            {websiteUrl && (
-              <ProjectLink href={websiteUrl}>
-                <LanguageIcon className="size-4" />
-                {t('website')}
-              </ProjectLink>
-            )}
-          </div>
-        )}
+        <TechList technologies={technologies} />
+
+        <ProjectLinks githubUrl={githubUrl} websiteUrl={websiteUrl} />
       </Card>
-    </div>
+    </li>
   );
 }

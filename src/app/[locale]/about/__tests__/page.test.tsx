@@ -14,6 +14,7 @@ jest.mock('next/dynamic', () => ({
       return require('react').createElement('div', { 'data-testid': 'notion-page-renderer' }, recordMap.id);
     },
 }));
+jest.mock('@/features/notion/components/english-only-notice', () => ({ EnglishOnlyNotice: () => null }));
 jest.mock('@/features/contact/contact-cta', () => ({
   ContactCta: () => require('react').createElement('div', { 'data-testid': 'contact-cta' }),
 }));
@@ -45,7 +46,7 @@ describe('AboutPage', () => {
     render(await AboutPage());
 
     expect(screen.getByRole('heading', { level: 1, name: 'title' })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { level: 4, name: 'description' })).toBeInTheDocument();
+    expect(screen.getByText('description')).toBeInTheDocument();
     expect(screen.getByTestId('notion-page-renderer')).toHaveTextContent('about-record-map');
   });
 

@@ -5,6 +5,7 @@ import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { getNotionPage } from '@/features/notion/services/page';
 import { ContactCta } from '@/features/contact/contact-cta';
+import { EnglishOnlyNotice } from '@/features/notion/components/english-only-notice';
 
 const NotionPageRenderer = dynamic(() =>
   import('@/features/notion/components/notion-page-renderer').then((m) => m.NotionPageRenderer),
@@ -26,6 +27,8 @@ export default async function AboutPage() {
   return (
     <>
       <SectionHeader title={t('title')} description={t('description')}></SectionHeader>
+
+      <EnglishOnlyNotice />
 
       <NotionPageRenderer recordMap={recordMap} />
 

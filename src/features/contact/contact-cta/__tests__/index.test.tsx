@@ -1,5 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { getTranslations } from 'next-intl/server';
+import { Button } from '@/components/ui/button';
+import { ExternalLink } from '@/components/ui/external-link';
 import { ContactCta } from '..';
 
 jest.mock('next-intl/server', () => ({ getTranslations: jest.fn() }));
@@ -36,6 +38,17 @@ describe('ContactCta', () => {
     expect(container.firstElementChild).toHaveClass('justify-center');
   });
 
+  it('shows the lead-in line only when asked', async () => {
+    const { unmount } = render(await ContactCta());
+
+    expect(screen.queryByText('leadIn')).not.toBeInTheDocument();
+    unmount();
+
+    render(await ContactCta({ withLeadIn: true }));
+
+    expect(screen.getByText('leadIn')).toBeInTheDocument();
+  });
+
   it('links the resume in a new tab', async () => {
     render(await ContactCta());
 
@@ -50,6 +63,9 @@ describe('ContactCta', () => {
     jest.resetModules();
     let Cta!: typeof ContactCta;
     jest.isolateModules(() => {
+      // A fresh registry would load a second React for base-ui and next/link, so reuse the loaded components.
+      jest.doMock('@/components/ui/button', () => ({ Button }));
+      jest.doMock('@/components/ui/external-link', () => ({ ExternalLink }));
       // Fresh registry gives a fresh mock, so give it its translations again.
       jest.mocked(require('next-intl/server').getTranslations).mockResolvedValue((key: string) => key);
       Cta = require('..').ContactCta;

@@ -7,7 +7,7 @@ export function SectionHeader({ title, description }: { title: string; descripti
         {title}
       </Typography>
 
-      <Typography variant="h4" weight="light" className="text-center mb-16">
+      <Typography variant="body" weight="light" className="text-xl text-center mb-16">
         {description}
       </Typography>
     </div>

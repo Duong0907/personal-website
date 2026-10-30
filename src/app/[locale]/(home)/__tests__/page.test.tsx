@@ -35,9 +35,10 @@ describe('HomePage', () => {
   it('shows the name, title and description', async () => {
     render(await HomePage());
 
-    expect(screen.getByRole('heading', { level: 1, name: 'Duong Phan' })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { level: 4, name: 'title' })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { level: 4, name: 'description' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: 'name' })).toBeInTheDocument();
+    expect(screen.getByText('title')).toBeInTheDocument();
+    expect(screen.getByText('description')).toBeInTheDocument();
+    expect(screen.getAllByRole('heading')).toHaveLength(1);
   });
 
   it('links the open-to-work badge to LinkedIn in a new tab', async () => {
@@ -47,13 +48,14 @@ describe('HomePage', () => {
 
     expect(badge).toHaveAttribute('href', URLS.LINKEDIN_URL);
     expect(badge).toHaveAttribute('target', '_blank');
+    expect(badge).toHaveAttribute('rel', 'noopener noreferrer');
     expect(badge).toHaveTextContent('myLinkedIn');
   });
 
   it('renders the contact CTA between the description and the social icons', async () => {
     const { container } = render(await HomePage());
 
-    const description = screen.getByRole('heading', { level: 4, name: 'description' });
+    const description = screen.getByText('description');
     const cta = screen.getByTestId('contact-cta');
     const social = container.querySelector('.social-group') as HTMLElement;
 
@@ -63,18 +65,18 @@ describe('HomePage', () => {
   });
 
   it.each([
-    ['facebook-icon', '/icons/facebook.svg', URLS.FACEBOOK_URL],
-    ['mail-icon', '/icons/mail.svg', URLS.EMAIL_URL],
-    ['linkedin-icon', '/icons/linkedin.svg', URLS.LINKEDIN_URL],
-    ['github-icon', '/icons/github.svg', URLS.GITHUB_URL],
-  ])('links the %s to its profile in a new tab', async (alt, src, href) => {
-    render(await HomePage());
+    ['facebook', '/icons/facebook.svg', URLS.FACEBOOK_URL],
+    ['email', '/icons/mail.svg', URLS.EMAIL_URL],
+    ['linkedin', '/icons/linkedin.svg', URLS.LINKEDIN_URL],
+    ['github', '/icons/github.svg', URLS.GITHUB_URL],
+  ])('links the %s icon to its profile in a new tab', async (label, src, href) => {
+    const { container } = render(await HomePage());
 
-    const icon = screen.getByRole('img', { name: alt });
-    const link = icon.closest('a');
+    const link = container.querySelector(`.social-group a[aria-label="${label}"]`);
 
-    expect(icon).toHaveAttribute('src', src);
+    expect(link?.querySelector('img')).toHaveAttribute('src', src);
     expect(link).toHaveAttribute('href', href);
     expect(link).toHaveAttribute('target', '_blank');
+    expect(link).toHaveAttribute('rel', 'noopener noreferrer');
   });
 });

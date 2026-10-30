@@ -37,11 +37,22 @@ describe('LanguageSwitch', () => {
     expect(mockRouter.replace).toHaveBeenCalledWith('/projects', { locale: 'en' });
   });
 
-  it('renders both flag icons', () => {
+  it('names the switch by the language it turns on', () => {
     useLocaleMock.mockReturnValue('en');
     render(<LanguageSwitch />);
 
-    expect(screen.getByRole('img', { name: 'Vietnamese' })).toHaveAttribute('src', '/icons/vietnam.svg');
-    expect(screen.getByRole('img', { name: 'England' })).toHaveAttribute('src', '/icons/england.svg');
+    expect(screen.getByRole('switch', { name: 'Tiếng Việt' })).toBeInTheDocument();
+  });
+
+  it('renders both flag icons as decoration', () => {
+    useLocaleMock.mockReturnValue('en');
+    const { container } = render(<LanguageSwitch />);
+
+    const sources = Array.from(container.querySelectorAll('img')).map((img) => [img.getAttribute('src'), img.alt]);
+
+    expect(sources).toEqual([
+      ['/icons/vietnam.svg', ''],
+      ['/icons/england.svg', ''],
+    ]);
   });
 });

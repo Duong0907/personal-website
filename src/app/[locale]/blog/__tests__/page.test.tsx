@@ -12,6 +12,7 @@ describe('BlogPage', () => {
 
     expect(getTranslations).toHaveBeenCalledWith('blog');
     expect(screen.getByRole('heading', { level: 1, name: 'title' })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { level: 4, name: 'description' })).toBeInTheDocument();
+    expect(screen.getByText('description')).toBeInTheDocument();
+    expect(screen.getByText('empty')).toBeInTheDocument();
   });
 });

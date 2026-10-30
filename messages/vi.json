@@ -10,17 +10,20 @@
     "myLinkedIn": "LinkedIn mình"
   },
   "about-me": {
-    "title": "Mình là ai?",
+    "title": "Về mình",
     "description": "Một kỹ sư phần mềm"
   },
   "projects": {
     "title": "Dự án cá nhân",
-    "description": "Những sản phẩm mình đã làm",
-    "website": "Trang web"
+    "description": "Những sản phẩm mình làm từ đầu đến cuối",
+    "website": "Trang web",
+    "source": "Mã nguồn",
+    "stack": "Công nghệ"
   },
   "blog": {
     "title": "Blog",
-    "description": "Nơi mình viết ra suy nghĩ"
+    "description": "Ghi chép về những gì mình làm",
+    "empty": "Chưa có bài viết nào."
   },
   "contact": {
     "trigger": "Liên hệ",
@@ -30,14 +33,43 @@
     "email": "Email",
     "message": "Tin nhắn",
     "submit": "Gửi tin nhắn",
-    "error": "Lỗi rồi, bạn thử lại nhé!",
+    "error": "Lời nhắn chưa được gửi. Bạn thử lại, hoặc email trực tiếp cho mình nhé.",
     "success": "Cảm ơn bạn nhé! Lời nhắn đã được gửi đến mình.",
-    "resume": "Xem CV"
+    "resume": "Xem CV",
+    "emailMe": "Email cho mình",
+    "leadIn": "Bạn có câu hỏi về dự án này, hoặc đang làm gì đó thú vị?"
   },
   "navbar": {
     "home": "Trang chủ",
     "projects": "Dự án",
     "aboutMe": "Về mình",
-    "blog": "Blog"
+    "blog": "Blog",
+    "darkMode": "Chế độ tối",
+    "menu": "Menu",
+    "close": "Đóng menu",
+    "back": "Quay lại"
+  },
+  "site": {
+    "name": "Dương Phan"
+  },
+  "notion": {
+    "englishOnly": "Nội dung bên dưới được viết bằng tiếng Anh."
+  },
+  "not-found": {
+    "title": "Không tìm thấy trang",
+    "description": "Trang này không tồn tại hoặc đã được chuyển đi.",
+    "home": "Về trang chủ"
+  },
+  "error": {
+    "title": "Trang chưa tải được",
+    "description": "Không lấy được nội dung. Bạn thử lại sau ít phút nhé.",
+    "retry": "Thử lại",
+    "home": "Về trang chủ"
+  },
+  "social": {
+    "facebook": "Facebook",
+    "email": "Email",
+    "linkedin": "LinkedIn",
+    "github": "GitHub"
   }
 }

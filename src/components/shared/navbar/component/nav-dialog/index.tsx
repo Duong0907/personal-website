@@ -1,9 +1,10 @@
 import { Button } from '@/components/ui/button';
 import MenuIcon from '@material-design-icons/svg/outlined/menu.svg';
+import CloseIcon from '@material-design-icons/svg/outlined/close.svg';
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from '@/components/ui/navigation-menu';
 import { NavBarItem } from '../navbar-item';
 
-import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer';
+import { Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer';
 import { Logo } from '../logo';
 import { useState } from 'react';
 import { ABOUT_URL, BLOG_URL, PROJECTS_URL, ROOT_URL } from '@/lib/url';
@@ -25,15 +26,20 @@ export function NavDialog() {
   return (
     <Drawer direction="top" open={isOpen} onOpenChange={setIsOpen}>
       <DrawerTrigger asChild>
-        <Button variant="outline" size="icon" aria-label="Menu">
+        <Button variant="outline" size="icon" aria-label={t('menu')}>
           <MenuIcon className="size-6 text-foreground" />
         </Button>
       </DrawerTrigger>
       <DrawerContent className="p-8" aria-describedby={undefined}>
-        <DrawerHeader>
+        <DrawerHeader className="flex-row items-center justify-between">
           <DrawerTitle onClick={closeDrawer}>
             <Logo />
           </DrawerTitle>
+          <DrawerClose asChild>
+            <Button variant="ghost" size="icon" aria-label={t('close')}>
+              <CloseIcon className="size-6 text-foreground" />
+            </Button>
+          </DrawerClose>
         </DrawerHeader>
         <NavigationMenu orientation="vertical" className="max-w-none">
           <NavigationMenuList aria-orientation="vertical" className="flex-col">

@@ -1,13 +1,14 @@
 import { cva } from 'class-variance-authority';
+import { cn } from '@/lib/utils';
 
-export const buttonVariants = cva(
+const baseButtonVariants = cva(
   "group/button inline-flex shrink-0 items-center justify-center rounded-lg border border-transparent text-sm font-normal uppercase tracking-[0.08em] whitespace-nowrap transition-colors outline-none select-none cursor-pointer focus-visible:ring-2 focus-visible:ring-highlight active:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
         default: 'bg-foreground text-background hover:bg-foreground/85',
         outline:
-          'border-foreground/20 bg-transparent text-foreground hover:border-foreground hover:bg-foreground hover:text-background aria-expanded:bg-muted',
+          'border-foreground/50 bg-transparent text-foreground hover:border-foreground hover:bg-foreground hover:text-background aria-expanded:bg-muted',
         secondary: 'bg-muted text-foreground hover:bg-foreground/10',
         clear: 'text-foreground',
         ghost: 'text-foreground hover:bg-muted aria-expanded:bg-muted',
@@ -33,3 +34,6 @@ export const buttonVariants = cva(
     },
   },
 );
+
+// Merged, so a variant's border or background beats the base `border-transparent` on plain anchors too.
+export const buttonVariants = (props?: Parameters<typeof baseButtonVariants>[0]) => cn(baseButtonVariants(props));

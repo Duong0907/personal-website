@@ -10,6 +10,8 @@ jest.mock('@/features/notion/services/project', () => ({ getAllProjects: jest.fn
 jest.mock('@/components/shared/back-button', () => ({ BackButton: () => 'back-button' }));
 jest.mock('@/components/shared/back-to-top-button', () => ({ GoToTop: () => 'go-to-top' }));
 jest.mock('@/features/contact/contact-cta', () => ({ ContactCta: () => 'contact-cta' }));
+jest.mock('@/features/notion/components/english-only-notice', () => ({ EnglishOnlyNotice: () => null }));
+jest.mock('@/features/projects/project-card', () => ({ ProjectLinks: () => 'project-links' }));
 jest.mock('next/dynamic', () => ({
   __esModule: true,
   default: () =>
@@ -53,7 +55,24 @@ describe('generateStaticParams', () => {
   });
 });
 
+function project(id: string, name = id) {
+  return {
+    id,
+    name,
+    status: 'Published',
+    technologies: 'Next.js, Notion',
+    features: `${name} features`,
+    imageUrl: '',
+    githubUrl: '',
+    websiteUrl: '',
+  };
+}
+
 describe('ArticlePage', () => {
+  beforeEach(() => {
+    jest.mocked(getProjectById).mockResolvedValue(undefined);
+  });
+
   it('loads the Notion page for the blockId and renders it with navigation buttons', async () => {
     jest.mocked(getNotionPage).mockResolvedValue({ id: 'article-record-map' } as never);
 
@@ -63,6 +82,17 @@ describe('ArticlePage', () => {
     expect(container).toHaveTextContent('back-button');
     expect(container).toHaveTextContent('notion-page-renderer:article-record-map');
     expect(container).toHaveTextContent('notion-page-renderer:article-record-mapcontact-ctago-to-top');
+  });
+
+  it('renders a header with the project name, summary and stack', async () => {
+    jest.mocked(getNotionPage).mockResolvedValue({ id: 'record' } as never);
+    jest.mocked(getProjectById).mockResolvedValue(project('abc', 'Portfolio'));
+
+    render(await ArticlePage({ params: Promise.resolve({ blockId: 'abc' }) }));
+
+    expect(screen.getByRole('heading', { level: 1, name: 'Portfolio' })).toBeInTheDocument();
+    expect(screen.getByText('Portfolio features')).toBeInTheDocument();
+    expect(screen.getAllByRole('listitem').map((item) => item.textContent)).toEqual(['Next.js', 'Notion']);
   });
 
   it('returns 404 when the Notion page cannot be loaded', async () => {

@@ -42,7 +42,7 @@ describe('ProjectPage', () => {
 
     expect(getTranslations).toHaveBeenCalledWith('projects');
     expect(screen.getByRole('heading', { level: 1, name: 'title' })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { level: 4, name: 'description' })).toBeInTheDocument();
+    expect(screen.getByText('description')).toBeInTheDocument();
   });
 
   it('passes the published projects to the list', async () => {

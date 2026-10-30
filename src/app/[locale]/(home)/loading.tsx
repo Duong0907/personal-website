@@ -20,8 +20,8 @@ export default function Loading() {
       </div>
 
       <div className="flex flex-col items-center gap-3 sm:flex-row">
-        <Skeleton className="h-9 w-28" />
-        <Skeleton className="h-9 w-24" />
+        <Skeleton className="h-11 w-36" />
+        <Skeleton className="h-11 w-32" />
       </div>
 
       <div className="social-group flex gap-2">

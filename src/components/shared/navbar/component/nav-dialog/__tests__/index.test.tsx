@@ -5,7 +5,7 @@ import { NavDialog } from '..';
 jest.mock('next-intl', () => ({ useTranslations: () => (key: string) => key }));
 
 async function openDrawer() {
-  await userEvent.click(screen.getByRole('button'));
+  await userEvent.click(screen.getByRole('button', { name: 'menu' }));
 
   return screen.findByRole('dialog');
 }
@@ -46,7 +46,16 @@ describe('NavDialog', () => {
     render(<NavDialog />);
     await openDrawer();
 
-    await userEvent.click(screen.getByRole('link', { name: 'DUONG PHAN' }));
+    await userEvent.click(screen.getByRole('link', { name: 'name' }));
+
+    await expectDrawerToClose();
+  });
+
+  it('closes when the close button is clicked', async () => {
+    render(<NavDialog />);
+    await openDrawer();
+
+    await userEvent.click(screen.getByRole('button', { name: 'close' }));
 
     await expectDrawerToClose();
   });
