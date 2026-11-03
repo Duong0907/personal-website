@@ -30,7 +30,8 @@ describe('article opengraph-image', () => {
       technologies: 'Next.js, Notion',
       features: '',
       imageUrl: '',
-      githubUrl: '',
+      githubFrontendUrl: '',
+      githubBackendUrl: '',
       websiteUrl: '',
     });
 

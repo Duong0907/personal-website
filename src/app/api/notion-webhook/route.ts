@@ -17,8 +17,6 @@ export async function POST(request: Request) {
 
   // Notion webhook calls to get the secret token
   if (!signatureHeader && isVerificationHandshake(parsedBody)) {
-    console.log('Notion webhook verification token:', parsedBody.verification_token);
-
     return NextResponse.json({ ok: true });
   }
 
@@ -29,8 +27,6 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ error: 'Webhook not configured' }, { status: 500 });
   }
-
-  console.log('Invalidate', { signatureHeader, rawBody, secret });
 
   // Notion webhook events call
   // Validate the signatureHeader

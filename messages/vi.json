@@ -16,7 +16,10 @@
   "projects": {
     "title": "Dự án cá nhân",
     "description": "Những sản phẩm mình làm từ đầu đến cuối",
+    "story": "Câu chuyện",
     "website": "Trang web",
+    "frontend": "Frontend",
+    "backend": "Backend",
     "source": "Mã nguồn",
     "stack": "Công nghệ"
   },

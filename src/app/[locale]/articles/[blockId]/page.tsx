@@ -67,7 +67,11 @@ export default async function ArticlePage({ params }: { params: Promise<{ blockI
             </Typography>
           )}
           <TechList technologies={project.technologies} />
-          <ProjectLinks githubUrl={project.githubUrl} websiteUrl={project.websiteUrl} />
+          <ProjectLinks
+            githubFrontendUrl={project.githubFrontendUrl}
+            githubBackendUrl={project.githubBackendUrl}
+            websiteUrl={project.websiteUrl}
+          />
         </header>
       )}
 

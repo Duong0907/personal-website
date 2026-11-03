@@ -15,7 +15,8 @@ function project(id: string): Project {
     technologies: `Tech ${id}`,
     features: `Features ${id}`,
     imageUrl: `https://example.com/${id}.png`,
-    githubUrl: `https://github.com/me/${id}`,
+    githubFrontendUrl: `https://github.com/me/${id}-fe`,
+    githubBackendUrl: `https://github.com/me/${id}-be`,
     websiteUrl: `https://${id}.dev`,
   };
 }
@@ -42,7 +43,8 @@ describe('ProjectList', () => {
         technologies: 'Tech a',
         features: 'Features a',
         imageUrl: 'https://example.com/a.png',
-        githubUrl: 'https://github.com/me/a',
+        githubFrontendUrl: 'https://github.com/me/a-fe',
+        githubBackendUrl: 'https://github.com/me/a-be',
         websiteUrl: 'https://a.dev',
         priority: true,
         delayMs: 0,

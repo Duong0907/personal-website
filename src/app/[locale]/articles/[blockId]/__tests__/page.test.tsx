@@ -36,7 +36,8 @@ describe('generateStaticParams', () => {
         technologies: '',
         features: '',
         imageUrl: '',
-        githubUrl: '',
+        githubFrontendUrl: '',
+        githubBackendUrl: '',
         websiteUrl: '',
       },
       {
@@ -46,7 +47,8 @@ describe('generateStaticParams', () => {
         technologies: '',
         features: '',
         imageUrl: '',
-        githubUrl: '',
+        githubFrontendUrl: '',
+        githubBackendUrl: '',
         websiteUrl: '',
       },
     ]);
@@ -63,7 +65,8 @@ function project(id: string, name = id) {
     technologies: 'Next.js, Notion',
     features: `${name} features`,
     imageUrl: '',
-    githubUrl: '',
+    githubFrontendUrl: '',
+    githubBackendUrl: '',
     websiteUrl: '',
   };
 }
@@ -113,7 +116,8 @@ describe('generateMetadata', () => {
       technologies: 'Next.js',
       features: 'Notion CMS, i18n',
       imageUrl: '',
-      githubUrl: '',
+      githubFrontendUrl: '',
+      githubBackendUrl: '',
       websiteUrl: '',
     });
 

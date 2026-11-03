@@ -16,7 +16,8 @@ const projects = [
     technologies: '',
     features: '',
     imageUrl: '',
-    githubUrl: '',
+    githubFrontendUrl: '',
+    githubBackendUrl: '',
     websiteUrl: '',
   },
   {
@@ -26,7 +27,8 @@ const projects = [
     technologies: '',
     features: '',
     imageUrl: '',
-    githubUrl: '',
+    githubFrontendUrl: '',
+    githubBackendUrl: '',
     websiteUrl: '',
   },
 ];

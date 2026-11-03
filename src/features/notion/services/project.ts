@@ -7,8 +7,8 @@ import type { DataSourceRow, NotionPageResult } from '../types';
 
 const NOTION_DATASOURCE_ID = process.env.NOTION_DATASOURCE_ID || '';
 
-// TODO: Handle external image url structure:
-// { Thumbnail: { files: [{ external: { url: 'https://x.y/z.png' } }] } }
+// Notion file URLs expire after an hour, so the card points at a stable route that re-signs on request.
+// External links go through the same route, so next/image optimizes them without listing each host.
 const mapProjectEntity = (item: DataSourceRow): Project => {
   const { id, properties: props = {} } = item as NotionPageResult;
 
@@ -18,8 +18,9 @@ const mapProjectEntity = (item: DataSourceRow): Project => {
     status: props.Status?.select?.name ?? 'N/A',
     technologies: props.Technologies?.rich_text?.[0]?.plain_text ?? 'N/A',
     features: props.Features?.rich_text?.[0]?.plain_text ?? 'N/A',
-    imageUrl: props.Thumbnail?.files?.[0]?.file?.url ?? '',
-    githubUrl: props.Github?.rich_text?.[0]?.text?.content ?? '',
+    imageUrl: props.Thumbnail?.files?.[0] ? `/api/notion-image/${id}` : '',
+    githubFrontendUrl: props['Github Frontend']?.rich_text?.[0]?.text?.content ?? '',
+    githubBackendUrl: props['Github Backend']?.rich_text?.[0]?.text?.content ?? '',
     websiteUrl: props.Website?.rich_text?.[0]?.text?.content ?? '',
   };
 };
@@ -56,4 +57,24 @@ export async function getProjectById(id: string): Promise<Project | undefined> {
   const projects = await getAllProjects();
 
   return projects.find((project) => project.id === id);
+}
+
+// Uncached on purpose: every call returns a freshly signed Notion file URL.
+export async function getProjectThumbnailUrl(id: string): Promise<string | null> {
+  try {
+    const page = await notion.pages.retrieve({ page_id: id });
+    const { parent, properties: props = {} } = page as NotionPageResult & { parent?: { data_source_id?: string } };
+
+    if (parent?.data_source_id !== NOTION_DATASOURCE_ID || props.Status?.select?.name !== 'Published') {
+      return null;
+    }
+
+    const thumbnail = props.Thumbnail?.files?.[0];
+
+    return thumbnail?.file?.url ?? thumbnail?.external?.url ?? null;
+  } catch (error) {
+    console.error('Error fetching project thumbnail from Notion:', error);
+
+    return null;
+  }
 }

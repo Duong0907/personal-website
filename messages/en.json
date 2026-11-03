@@ -16,7 +16,10 @@
   "projects": {
     "title": "Personal Projects",
     "description": "What I've built, end to end",
+    "story": "Story",
     "website": "Website",
+    "frontend": "Frontend",
+    "backend": "Backend",
     "source": "Source",
     "stack": "Stack"
   },
