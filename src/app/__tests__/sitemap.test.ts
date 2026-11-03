@@ -15,7 +15,8 @@ function project(id: string) {
     technologies: '',
     features: '',
     imageUrl: '',
-    githubUrl: '',
+    githubFrontendUrl: '',
+    githubBackendUrl: '',
     websiteUrl: '',
   };
 }

@@ -51,6 +51,9 @@ importers:
       notion-client:
         specifier: ^7.12.1
         version: 7.12.1
+      notion-utils:
+        specifier: 7.12.1
+        version: 7.12.1
       react:
         specifier: 19.2.4
         version: 19.2.4

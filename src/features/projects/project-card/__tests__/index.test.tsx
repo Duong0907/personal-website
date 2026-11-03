@@ -19,7 +19,8 @@ const props = {
   imageUrl: 'https://example.com/a.png',
   priority: false,
   delayMs: 150,
-  githubUrl: 'https://github.com/me/portfolio',
+  githubFrontendUrl: 'https://github.com/me/portfolio',
+  githubBackendUrl: '',
   websiteUrl: 'https://portfolio.dev',
 };
 
@@ -28,10 +29,10 @@ describe('ProjectCard', () => {
     mockVisible(false);
   });
 
-  it('links to the article page and shows the project text', () => {
+  it('shows the project text without making the card a link', () => {
     render(<ProjectCard {...props} />);
 
-    expect(screen.getByRole('link', { name: 'Portfolio' })).toHaveAttribute('href', '/articles/p1');
+    expect(screen.queryByRole('link', { name: 'Portfolio' })).not.toBeInTheDocument();
     expect(screen.getByRole('heading', { level: 2, name: 'Portfolio' })).toBeInTheDocument();
     expect(screen.getByText('Next.js')).toBeInTheDocument();
     expect(screen.getByText('i18n, dark mode')).toBeInTheDocument();
@@ -51,8 +52,41 @@ describe('ProjectCard', () => {
     }
   });
 
+  it('links to the article page from the Story link in the same tab', () => {
+    render(<ProjectCard {...props} />);
+
+    const story = screen.getByRole('link', { name: 'story' });
+
+    expect(story).toHaveAttribute('href', '/articles/p1');
+    expect(story).not.toHaveAttribute('target');
+  });
+
+  it('labels a backend-only repo as GitHub', () => {
+    render(<ProjectCard {...props} githubFrontendUrl="" githubBackendUrl="https://github.com/me/api" />);
+
+    expect(screen.getByRole('link', { name: 'GitHub' })).toHaveAttribute('href', 'https://github.com/me/api');
+  });
+
+  it('shows separate frontend and backend links when both repos exist', () => {
+    render(<ProjectCard {...props} githubBackendUrl="https://github.com/me/api" />);
+
+    expect(screen.queryByRole('link', { name: 'GitHub' })).not.toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'frontend' })).toHaveAttribute('href', 'https://github.com/me/portfolio');
+    expect(screen.getByRole('link', { name: 'backend' })).toHaveAttribute('href', 'https://github.com/me/api');
+  });
+
+  it('shows both repo links without a key clash when they share one URL', () => {
+    const consoleError = jest.spyOn(console, 'error').mockImplementation(() => {});
+
+    render(<ProjectCard {...props} githubBackendUrl={props.githubFrontendUrl} />);
+
+    expect(screen.getByRole('link', { name: 'frontend' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'backend' })).toBeInTheDocument();
+    expect(consoleError).not.toHaveBeenCalled();
+  });
+
   it('hides the GitHub and website links when their URLs are empty', () => {
-    render(<ProjectCard {...props} githubUrl="" websiteUrl="" />);
+    render(<ProjectCard {...props} githubFrontendUrl="" websiteUrl="" />);
 
     expect(screen.getAllByRole('link')).toHaveLength(1);
   });

@@ -1,10 +1,16 @@
 import { notion } from '../notion';
-import { getAllProjects, getProjectById } from '../project';
+import { getAllProjects, getProjectById, getProjectThumbnailUrl } from '../project';
 
-jest.mock('../notion', () => ({ notion: { dataSources: { query: jest.fn() } } }));
+// project.ts reads NOTION_DATASOURCE_ID at import; this hoisted factory runs before that.
+jest.mock('../notion', () => {
+  process.env.NOTION_DATASOURCE_ID = 'ds-1';
+
+  return { notion: { dataSources: { query: jest.fn() }, pages: { retrieve: jest.fn() } } };
+});
 jest.mock('next/cache', () => ({ unstable_cache: jest.fn() }));
 
 const query = jest.mocked(notion.dataSources.query);
+const retrieve = jest.mocked(notion.pages.retrieve);
 
 function mockResults(results: unknown[]) {
   query.mockResolvedValue({ results } as never);
@@ -18,7 +24,8 @@ const fullRow = {
     Technologies: { rich_text: [{ plain_text: 'Next.js' }] },
     Features: { rich_text: [{ plain_text: 'i18n' }] },
     Thumbnail: { files: [{ file: { url: 'https://example.com/a.png' } }] },
-    Github: { rich_text: [{ text: { content: 'https://github.com/me/portfolio' } }] },
+    'Github Frontend': { rich_text: [{ text: { content: 'https://github.com/me/portfolio' } }] },
+    'Github Backend': { rich_text: [{ text: { content: 'https://github.com/me/portfolio-api' } }] },
     Website: { rich_text: [{ text: { content: 'https://portfolio.dev' } }] },
   },
 };
@@ -29,7 +36,8 @@ const fallbackProject = {
   technologies: 'N/A',
   features: 'N/A',
   imageUrl: '',
-  githubUrl: '',
+  githubFrontendUrl: '',
+  githubBackendUrl: '',
   websiteUrl: '',
 };
 
@@ -56,8 +64,9 @@ describe('getAllProjects', () => {
         status: 'Published',
         technologies: 'Next.js',
         features: 'i18n',
-        imageUrl: 'https://example.com/a.png',
-        githubUrl: 'https://github.com/me/portfolio',
+        imageUrl: '/api/notion-image/page-1',
+        githubFrontendUrl: 'https://github.com/me/portfolio',
+        githubBackendUrl: 'https://github.com/me/portfolio-api',
         websiteUrl: 'https://portfolio.dev',
       },
     ]);
@@ -79,7 +88,8 @@ describe('getAllProjects', () => {
           Technologies: { rich_text: [] },
           Features: { rich_text: [] },
           Thumbnail: { files: [] },
-          Github: { rich_text: [] },
+          'Github Frontend': { rich_text: [] },
+          'Github Backend': { rich_text: [] },
           Website: { rich_text: [] },
         },
       },
@@ -88,12 +98,12 @@ describe('getAllProjects', () => {
     await expect(getAllProjects()).resolves.toEqual([{ id: 'page-3', ...fallbackProject }]);
   });
 
-  it('uses an empty image URL for an external (non-file) thumbnail', async () => {
+  it('points an external thumbnail at the image route too', async () => {
     mockResults([{ id: 'page-4', properties: { Thumbnail: { files: [{ external: { url: 'https://x.y/z.png' } }] } } }]);
 
     const [project] = await getAllProjects();
 
-    expect(project.imageUrl).toBe('');
+    expect(project.imageUrl).toBe('/api/notion-image/page-4');
   });
 
   it('keeps the order of the results', async () => {
@@ -126,5 +136,63 @@ describe('getProjectById', () => {
     mockResults([fullRow]);
 
     await expect(getProjectById('missing')).resolves.toBeUndefined();
+  });
+});
+
+describe('getProjectThumbnailUrl', () => {
+  const page = (dataSourceId: string, status: string) => ({
+    parent: { data_source_id: dataSourceId },
+    properties: {
+      Status: { select: { name: status } },
+      Thumbnail: { files: [{ file: { url: 'https://example.com/fresh.png' } }] },
+    },
+  });
+
+  it('returns the freshly signed thumbnail URL of a published project', async () => {
+    retrieve.mockResolvedValue(page('ds-1', 'Published') as never);
+
+    await expect(getProjectThumbnailUrl('page-1')).resolves.toBe('https://example.com/fresh.png');
+    expect(retrieve).toHaveBeenCalledWith({ page_id: 'page-1' });
+  });
+
+  it('returns the URL of an external thumbnail', async () => {
+    retrieve.mockResolvedValue({
+      parent: { data_source_id: 'ds-1' },
+      properties: {
+        Status: { select: { name: 'Published' } },
+        Thumbnail: { files: [{ external: { url: 'https://x.y/z.png' } }] },
+      },
+    } as never);
+
+    await expect(getProjectThumbnailUrl('page-1')).resolves.toBe('https://x.y/z.png');
+  });
+
+  it('returns null for a page outside the projects data source', async () => {
+    retrieve.mockResolvedValue(page('other', 'Published') as never);
+
+    await expect(getProjectThumbnailUrl('page-1')).resolves.toBeNull();
+  });
+
+  it('returns null for an unpublished project', async () => {
+    retrieve.mockResolvedValue(page('ds-1', 'Craft') as never);
+
+    await expect(getProjectThumbnailUrl('page-1')).resolves.toBeNull();
+  });
+
+  it('returns null when the project has no uploaded thumbnail', async () => {
+    retrieve.mockResolvedValue({
+      parent: { data_source_id: 'ds-1' },
+      properties: { Status: { select: { name: 'Published' } } },
+    } as never);
+
+    await expect(getProjectThumbnailUrl('page-1')).resolves.toBeNull();
+  });
+
+  it('returns null and logs when Notion fails', async () => {
+    const consoleError = jest.spyOn(console, 'error').mockImplementation(() => {});
+    retrieve.mockRejectedValue(new Error('not found'));
+
+    await expect(getProjectThumbnailUrl('page-1')).resolves.toBeNull();
+    expect(consoleError).toHaveBeenCalledWith('Error fetching project thumbnail from Notion:', expect.any(Error));
   });
 });

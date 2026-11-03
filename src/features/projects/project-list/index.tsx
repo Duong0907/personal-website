@@ -8,7 +8,7 @@ export function ProjectList({ projects }: { projects: Project[] }) {
   return (
     <ul className="flex w-full flex-col md:w-176 gap-4">
       {projects.map((project, index) => {
-        const { id, name, features, technologies, imageUrl, githubUrl, websiteUrl } = project;
+        const { id, name, features, technologies, imageUrl, githubFrontendUrl, githubBackendUrl, websiteUrl } = project;
 
         return (
           <ProjectCard
@@ -18,7 +18,8 @@ export function ProjectList({ projects }: { projects: Project[] }) {
             features={features}
             technologies={technologies}
             imageUrl={imageUrl}
-            githubUrl={githubUrl}
+            githubFrontendUrl={githubFrontendUrl}
+            githubBackendUrl={githubBackendUrl}
             websiteUrl={websiteUrl}
             priority={index === 0}
             delayMs={Math.min(index, REVEAL_STAGGER_MAX_STEPS) * REVEAL_STAGGER_MS}
